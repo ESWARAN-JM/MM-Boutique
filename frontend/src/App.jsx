@@ -23,7 +23,7 @@ import {Provider} from "react-redux";
 import store from "./redux/store";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
 import AddProduct from "./components/Admin/AddProduct";
-import ConfirmOrder from "./components/Cart/confirmOrder";
+import ConfirmOrder from "./components/Cart/ConfirmOrder";
 
 const App = () => {
   return (
