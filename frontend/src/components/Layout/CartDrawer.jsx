@@ -3,6 +3,8 @@ import { IoMdClose } from "react-icons/io";
 import CartContent from "../Cart/CartContent";
 import {useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";
+import { IoCartOutline } from "react-icons/io5"
+import { Link } from "react-router-dom";
 
 const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
  
@@ -16,11 +18,11 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
     if (!user) {
       navigate("/login?redirect=checkout");
     } else {
-      navigate("/checkout");
+      navigate("/ConfirmOrder");
     }
    };
 
- return (<div className={`fixed top-0 right-0 w-3/4 sm:w-1/2 md:w-[30rem] h-full bg-white shadow-lg transform transition-transform duration-300 flex flex-col z-50 ${ drawerOpen ? "translate-x-0" : "translate-x-full"
+ return ( <div className={`fixed top-0 right-0 w-3/4 sm:w-1/2 md:w-[30rem] h-full bg-white shadow-lg transform transition-transform duration-300 flex flex-col z-50 ${ drawerOpen ? "translate-x-0" : "translate-x-full"
   }`}>
 
 {/* Close Button */}
@@ -30,11 +32,15 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
    </div>
    {/*Cart contents with scrolable area*/}
    <div className="flex-grow p-4 overflow-y-auto">
-      <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
+      <h2 className="text-xl flex  font-bold mb-4">Your Cart<IoCartOutline className="mt-1 ml-1"/></h2>
       {cart && cart?.products?.length > 0 ? (
         <CartContent cart={cart} userId={userId} guestId={guestId} />
       ) : (
-        <p>Your cart is empty.</p>
+        <p className="text-center mt-20">Your cart is empty! What are waiting for? Add your favorite styles now and elevate your look.!
+        <Link to="/collection/all" onClick={toggleCartDrawer}
+                    className="text-gray-900 flex justify-center pt-10 underline">
+                        Shop Now <IoCartOutline className="mt-1"/>
+                    </Link></p>
       )}
       
   </div>

@@ -22,7 +22,7 @@ export const createProduct = createAsyncThunk(
     "adminProducts/createProduct",
     async (productData) => {
         const response = await axios.post(
-            `${API_URL}/api/admin/products` ,
+            `${API_URL}/api/admin/products/add-product` ,
             productData,
             {
                 headers: {
@@ -84,8 +84,16 @@ const adminProductSlice = createSlice({
             state.error = action.error.message;
         })
         // Create Product
+        .addCase(createProduct.pending, (state) => {
+            state.loading = true; 
+        })
         .addCase(createProduct.fulfilled, (state, action) => {
-            state.products.push(action.payload);
+            state.loading = false;
+            state.products.push(action.payload); 
+        })
+        .addCase(createProduct.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message; 
         })
         // Update Product
         .addCase(updateProduct.fulfilled, (state, action) => {

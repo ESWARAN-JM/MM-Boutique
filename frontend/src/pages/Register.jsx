@@ -31,29 +31,40 @@ const Register = () => {
       }
     }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
 
-    const handleSubmit = (e) => {
+    const [error, setError] = useState(null);
+      const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(registerUser({name, email, password }));
+        try {
+          await dispatch(registerUser({name, email, password })).unwrap();
+        } catch (err) {
+          setError("Password should be minimum of 6 characters");
+        }
       };
 
     return (
-    <div className="flex">
+    <div className="flex pt-24 lg:pt-8">
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-12">
       <form 
       onSubmit={handleSubmit}
       className="w-full max-w-md bg-white p-8 rounded-lg border shadow-sm">
         <div className="flex justify-center mb-6">
-            <h2 className="text-xl font-medium">Rabbit</h2>
+            <h2 className="text-xl font-medium">M.M Boutique & Collections</h2>
         </div>
-        <h2 className="text-2xl font-bold text-center mb-6">Hey There!</h2>
+        <h2 className="text-2xl font-bold text-center mb-6">Welcome!</h2>
         <p className="text-center mb-6">
-            Enter your username and password to Login.
+        Please enter your Details...
         </p>
+        {error && (
+  <div className="mb-4 p-2 text-red-700 bg-red-200 border border-red-500 rounded">
+    {error}
+  </div>
+)}
         <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">Name</label>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)}
             className="w-full p-2 border rounded"
             placeholder="Enter your Name"
+            required
             />
         </div>
         <div className="mb-4">
@@ -61,6 +72,7 @@ const Register = () => {
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
             className="w-full p-2 border rounded"
             placeholder="Enter your email address"
+            required
             />
         </div>
         <div className="mb-4">
@@ -68,6 +80,7 @@ const Register = () => {
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 border rounded"
             placeholder="Enter your password"
+            required
             />
         </div>
         <button
@@ -86,7 +99,7 @@ const Register = () => {
       </form>
       </div>
 
-      <div className="hiiden md:block w-1/2 bg-gray-800">
+      <div className="hidden md:block w-1/2 bg-gray-800">
       <div className="h-full flex flex-col justify-center items-center">
         <img src={register} alt="Login to Account" className="h-[750px] w-full object-cover" />
       </div>

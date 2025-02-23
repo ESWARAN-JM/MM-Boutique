@@ -22,7 +22,6 @@ const EditProductPage = () => {
         colors:[],
         collections: "",
         material: "",
-        gender: "",
         images: [],
     });
 
@@ -45,6 +44,15 @@ const EditProductPage = () => {
         setProductData((preData) => ({...preData, [name]: value}));
     };
 
+    const handleAltTextChange = (index, value) => {
+        setProductData((prevData) => {
+            const updatedImages = prevData.images.map((img, i) => 
+                i === index ? { ...img, altText: value } : img
+            );
+            return { ...prevData, images: updatedImages };
+        });
+    };
+
     const handleImageUpload = async (e) => {
         const file =e.target.files[0];
         const formData = new FormData();
@@ -56,12 +64,12 @@ const EditProductPage = () => {
                 `${import.meta.env.VITE_BACKEND_URL}/api/upload`,
                 formData,
                 {
-                    headers: { "Content-Type": "multipart/form-aata"},
+                    headers: { "Content-Type": "multipart/form-data"},
                 }
             );
             setProductData((prevData) => ({
                 ...prevData,
-                images: [...prevData.images, {url: data.imageUrl, altText: "" }],
+                images: [...prevData.images, {url: data.imageUrl, altText: "Product Image" }],
             }));
             setUploading(false);
         } catch (error) {
@@ -80,8 +88,8 @@ const EditProductPage = () => {
     if (error) return <p>Error {error}</p>;
 
   return (
-    <div className="max-w-5xl mx-auto p-6 shadow-md rounded-md">
-        <h2 className="text-3xl font-bold mb6">edit Product</h2>
+    <div className="max-w-5xl pt-16 mx-auto p-6 shadow-md rounded-md">
+        <h2 className="text-3xl font-bold mb-6">Edit Product</h2>
         <form onSubmit={handleSubmit}>
             {/*Name */}
             <div className="mb-6">
@@ -182,22 +190,27 @@ const EditProductPage = () => {
 
             {/*Image Upload */}
             <div className="mb-6">
-                <label className="block font-semibold mb-2">Upload Image</label>
-                <input 
-                type="file"
-                onChange={handleImageUpload} />
-                {uploading && <p>Uploading image...</p>}
-                <div className="flex gap-4 mt-4">
-                    {productData.images.map((image, index) => (
-                        <div key={index}>
-                            <img src={image.url} 
-                            alt={image.altText || "Product Image"}
-                            className="w-20 h-20 object-cover rounded-md shadow-md"
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>  
+                    <label className="block font-semibold mb-2">Upload Image</label>
+                    <input type="file" onChange={handleImageUpload} />
+                    {uploading && <p>Uploading image...</p>}
+                    <div className="flex gap-4 mt-4">
+                        {productData.images.map((image, index) => (
+                            <div key={index}>
+                                <img src={image.url} 
+                                    alt={image.altText || "Product Image"} 
+                                    className="w-20 h-20 object-cover rounded-md shadow-md"
+                                />
+                                <input 
+                                    type="text" 
+                                    placeholder="Alt text" 
+                                    value={image.altText} 
+                                    onChange={(e) => handleAltTextChange(index, e.target.value)} 
+                                    className="mt-2 border border-gray-300 rounded-md p-1 w-full"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div> 
             <button 
             className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-colors">
              Update Product    

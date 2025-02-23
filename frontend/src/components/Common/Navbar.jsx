@@ -2,13 +2,14 @@ import {Link} from "react-router-dom";
 import {
     HiOutlineUser,
     HiOutlineShoppingBag,
-    HiBars3BottomRight,
 } from "react-icons/hi2";
 import SearchBar from "./SearchBar";
 import CartDrawer from "../Layout/CartDrawer";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useSelector } from "react-redux";
+import { FaBars } from "react-icons/fa";
+
 
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -30,26 +31,29 @@ const Navbar = () => {
   
   return (
     <>
-    <nav className="container mx-auto flex items-center justify-between py-4 px-6">
+    <nav className="container mx-auto  flex items-center justify-between h-12 py-4 px-6 ">
         {/*Left-Logo */}
-        <div>
-            <Link to="/" className="text-2xl font-medium">
-               Rabbit
+        <div className="items-center  ">
+            <Link to="/" >
+            <img src="/mm.png" alt="M.M Boutique" className="h-28 w-auto object-contain"/>
             </Link>
         </div>
         {/*Center - Navigation Links */}
         <div className="hidden md:flex space-x-6">
-            <Link to="/collection/all?gender=Men" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
-              Men
+            <Link to="/collection/all?category=Salwar" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
+            Salwar
             </Link>
-            <Link to="/collection/all?gender=Women" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
-              Women
+            <Link to="/collection/all?category=Saree" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
+              Saree
             </Link>
-            <Link to="/collection/all?category=Top Wear" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
-              Top Wear
+            <Link to="/collection/all?category=Gown" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
+              Gown
             </Link>
-            <Link to="/collection/all?category=Bottom Wear" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
-              Bottom Wear
+            <Link to="/collection/all?category=Aari Blouse" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
+              Aari Blouse
+            </Link>
+            <Link to="/collection/all?category=Inner Wear" className="text-gray-700 hover:text-black text-sm font-medium uppercase">
+              Inner Wear
             </Link>
             </div>
             {/* Right - Icons */}
@@ -59,10 +63,10 @@ const Navbar = () => {
               Admin</Link>
               )}
                 <Link to="/profile" className="hover:text-black">
-                  <HiOutlineUser className="h-6 w-6 text-gray-700"/>
+                  <HiOutlineUser className="h-6 w-6 text-gray-900"/>
                 </Link>
             <button onClick={toggleCartDrawer} className="relative hover:text-black">
-              <HiOutlineShoppingBag className="h-6 w-6 text-gray-700" />
+              <HiOutlineShoppingBag className="h-6 w-6 text-gray-900" />
               {cartItemCount > 0 && (
                 <span className="absolute -top-1  bg-rabbit-red text-white text-xs rounded-full px-2
                 py-0.5">
@@ -73,9 +77,9 @@ const Navbar = () => {
             </button>
             {/* Search  */}
             <div className="overflow-hidden">
-            <SearchBar /></div>
-            <button onClick={toggleNavDrawer} className="md:hidden">
-              <HiBars3BottomRight className="h=6 w-6 text-gray-700" />
+            <SearchBar className="h=6 w-6 text-gray-700" /></div>
+            <button onClick={toggleNavDrawer} className=" md:hidden">
+              <FaBars  className=" text-gray-900" />
             </button>
         </div>
     </nav>
@@ -91,12 +95,13 @@ const Navbar = () => {
         </button>
        </div>
        <div className="p-4">
-        <h2 className="text-xl font-semibold mb-4">Menu</h2>
-        <nav className="space-y-4">
-          <Link to="/collection/all?gender=Men" onClick={toggleNavDrawer} className="block text-gray-600 hover:text-black">Men</Link>
-          <Link to="/collection/all?gender=Women" onClick={toggleNavDrawer} className="block text-gray-600 hover:text-black">Women</Link>
-          <Link to="/collection/all?category=Top Wear" onClick={toggleNavDrawer} className="block text-gray-600 hover:text-black">Top Wear</Link>
-          <Link to="/collection/all?category=Bottom Wear" onClick={toggleNavDrawer} className="block text-gray-600 hover:text-black">Bottom Wear</Link>
+        <h2 className="text-xl font-extrabold mb-8">Menu</h2>
+        <nav className="space-y-5">
+          <Link to="/collection/all?category=Salwar" onClick={toggleNavDrawer} className="block font-semibold text-gray-800 hover:text-black">Salwar</Link>
+          <Link to="/collection/all?category=Saree" onClick={toggleNavDrawer} className="block font-semibold text-gray-800 hover:text-black">Saree</Link>
+          <Link to="/collection/all?category=Gown" onClick={toggleNavDrawer} className="block font-semibold text-gray-800 hover:text-black">Gown</Link>
+          <Link to="/collection/all?category=Aari Blouse" onClick={toggleNavDrawer} className="block font-semibold text-gray-800 hover:text-black">Aari Blouse</Link>
+          <Link to="/collection/all?category=Inner Wear" onClick={toggleNavDrawer} className="block font-semibold text-gray-800 hover:text-black">Inner wear</Link>
        </nav>
        </div>
 

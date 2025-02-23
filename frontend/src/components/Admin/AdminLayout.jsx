@@ -8,12 +8,13 @@ const AdminLayout = () => {
 
     const toggleSidebar = () => {
         setIsSiderbarOpen(!isSidebarOpen);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row relative">
         {/*Mobile Toggle Button */}
-        <div className="flex md:hidden p-4 bg-gray-900 text-white z-20">
+        <div className="flex fixed w-full text-center md:hidden p-4 bg-gray-900 text-white z-20">
             <button onClick={toggleSidebar}>
                 <FaBars size={24}/>
             </button>
@@ -29,7 +30,7 @@ const AdminLayout = () => {
         )}
 
         {/*sidebar */}
-        <div className={`bg-gray-900 w-64 min-h-screen text-white absolute md:relative transform ${
+        <div className={`bg-gray-900  w-64 min-h-screen text-white absolute md:relative transform ${
             isSidebarOpen ? "translate-x-0 " : "-translate-x-full"
           } transition-transform duration-300 md:translate-x-0 md:static md:block z-20`}
           onClick={toggleSidebar}>

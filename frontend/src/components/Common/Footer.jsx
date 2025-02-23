@@ -1,97 +1,73 @@
 import { IoLogoInstagram } from "react-icons/io";
-import { RiTwitterXLine } from "react-icons/ri";
-import { TbBrandMeta } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { FaWhatsapp } from "react-icons/fa";
 import {FiPhoneCall} from "react-icons/fi";
+import { TfiLocationPin } from "react-icons/tfi";
+import { FaRegFaceSmileBeam } from "react-icons/fa6";
+import { GoMoveToTop } from "react-icons/go";
 
 const Footer = () => {
   return  (
-  <footer className="border-t py-12">
-    <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4 lg:px-0">
-        <div>
-            <h3 className="text-lg text-gray-800 mb-4"> Newsletter</h3>
-            <p className=" text-gray-500 mb-4">
-                Be the first to hear about new products, exlusive events, and online offers.
-            </p>
-            <p className="font-medium text-sm text-gray-600 mb-6">Sign up and get 10% off on your first order.</p>
-            {/* Newsletter form */}
-            <form className="flex">
-                <input type="email"
-                placeholder="Enter your email"
-                className="p-3 w-full text-sm border-t border-l border-b border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-                required
-                 />
-                 <button type="submit" className="bg-black text-white px-6 py-3 text-sm rounded-r-md hover:bg-gray-800
-                 transition-all"
-                 > Subscribe</button>
-            </form>
-        </div>
-
-        {/*Shop links */}
-        <div>
-            <h3 className="text-lg text-gray-800 mb-4">Shop</h3>
-            <ul className="space-y-2 text-gray-600">
-                <li>
-                    <Link to="#" className="hover:text-gray-500 transition-colors">Men's Top Wear</Link>
-                </li>
-                <li>
-                    <Link to="#" className="hover:text-gray-500 transition-colors">Women's Top Wear</Link>
-                </li>
-                <li>
-                    <Link to="#" className="hover:text-gray-500 transition-colors">Men's Bottom Wear</Link>
-                </li>
-                <li>
-                    <Link to="#" className="hover:text-gray-500 transition-colors">Women's Bottom Wear</Link>
-                </li>
-            </ul>
-        </div>
-        {/*Support Links */}
-        <div>
-            <h3 className="text-lg text-gray-800 mb-4">Support</h3>
-            <ul className="space-y-2 text-gray-600">
-                <li>
-                    <Link to="#" className="hover:text-gray-500 transition-colors">Contuct Us</Link>
-                </li>
-                <li>
-                    <Link to="#" className="hover:text-gray-500 transition-colors">About Us</Link>
-                </li>
-                <li>
-                    <Link to="#" className="hover:text-gray-500 transition-colors">FAQs</Link>
-                </li>
-                <li>
-                    <Link to="#" className="hover:text-gray-500 transition-colors">Features</Link>
-                </li>
-            </ul>
-        </div>
-        {/*Follow Us */}
-        <div>
-            <h3 className="text-lg text-gray-800 mb-4 ">Follow Us</h3>
-            <div className="flex items-center space-x-4 mb-6">
-                <a href="#Facebook" target="_blank" rel="noopener noreferrer"
-                className="hover:text-gray-300">
-                    <TbBrandMeta className="h-5 w-5"/>
-                </a>
-                <a href="#Facebook" target="_blank" rel="noopener noreferrer"
-                className="hover:text-gray-300">
-                    <IoLogoInstagram className="h-5 w-5"/>
-                </a>
-                <a href="#Facebook" target="_blank" rel="noopener noreferrer"
-                className="hover:text-gray-300">
-                    <RiTwitterXLine className="h-4 w-4"/>
+  <footer className="border-t py-8">
+    
+        <div className="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-4 lg:px-0">
+            {/*Call Us */}
+        <div className="text-center border-r">
+            <h3 className="text-lg text-gray-800 mb-2 ">Call us</h3>
+            <div className="flex items-center justify-center space-x-4 mb-6">
+                
+                <a href="tel:+919840435157" target="_blank" rel="noopener noreferrer"
+                className="hover:text-gray-300 block text-center">
+                    <FiPhoneCall className="h-5 w-5"/>
                 </a>
             </div>
-            <p className="text-gray-500">Call Us</p>
-            <p>
-                <FiPhoneCall className="inline-block mr-2"/>
-                9840435157
-            </p>
+        </div>
+        {/*Follow Us */}
+        <div className="text-center lg:border-r ">
+            <h3 className="text-lg text-gray-800 mb-2 ">Follow us</h3>
+            <div className="flex items-center justify-center space-x-4 mb-6">
+                
+                <a href="https://www.instagram.com/mmboutique_collections?igsh=MWdvb2RsbnVuMTI2dQ==" target="_blank" rel="noopener noreferrer"
+                className="hover:text-gray-300 block text-center">
+                    <IoLogoInstagram className="h-5 w-5"/>
+                </a>
+                <a href="https://wa.link/qn6rei" target="_blank" rel="noopener noreferrer"
+                className="hover:text-gray-300 block text-center">
+                    <FaWhatsapp className="h-5 w-5"/>
+                </a>
+            </div>
+        </div> 
+          {/*location */}
+          <div className="text-center border-r">
+            <h3 className="text-lg text-gray-800 mb-2 ">Visit Shop</h3>
+            <div className="flex items-center justify-center space-x-4 mb-6">
+                
+                <a href="https://maps.app.goo.gl/tHRHxrQd59FMV6HT9" target="_blank" rel="noopener noreferrer"
+                className="hover:text-gray-300 block text-center">
+                    <TfiLocationPin className="h-5 w-5"/>
+                </a>
+            </div>
+        </div>
+        {/*go to top */}
+        <div className="text-center ">
+            <h3 className="text-lg text-gray-800 mb-2 ">Go to Top</h3>
+            <div className="flex items-center justify-center space-x-4 mb-6">
+                
+                <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                className="hover:text-gray-300 block text-center">
+                    <GoMoveToTop className="h-5 w-5"/>
+                </a>
+            </div>
         </div>
     </div>
     {/* Footer Bottom */}
-    <div className="container mx-auto mt-12 py-4 lg:px-0 border-t border-gray-200 pt-6">
+    <div className="  mt-12  border-t border-gray-200 pt-4">
         <p className="text-gray-500 text-sm tracking-tighter text-center">
-        © 2025, CompileTab. All Rights Reserved.
+        © 2025, M.M Boutique. All Rights Reserved.
         </p>
+        <p className="text-gray-500 text-sm tracking-tighter text-center">
+        created with love by, 
+        </p>
+        <a href="https://eswaran-jm.github.io/eswar-portfolio/" target="_blank" rel="noopener noreferrer" className="text-gray-500 flex justify-center text-sm tracking-tighter text-center block" > Eswar <FaRegFaceSmileBeam className="mt-1 mr-1 ml-1"/>  click here to know about me.!</a>
     </div>
   </footer>
   )

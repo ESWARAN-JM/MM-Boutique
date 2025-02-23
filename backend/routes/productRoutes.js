@@ -4,63 +4,7 @@ const { protect, admin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// @route POST /api/products
-// @desc Create a new product
-// @access Private/Admin
-router.post("/", protect, admin, async (req, res)=> {
-    try {
-        const {
-            name, 
-            description,
-            price,
-            discountPrice,
-            countInStock,
-            category,
-            brand,
-            sizes,
-            colors,
-            collections,
-            material, 
-            gender,
-            images,
-            isFeatured,
-            isPublished,
-            tags,
-            dimensions,
-            weight,
-            sku,
-        } = req.body;
 
-        const product = new Product({
-            name, 
-            description,
-            price,
-            discountPrice,
-            countInStock,
-            category,
-            brand,
-            sizes,
-            colors,
-            collections,
-            material, 
-            gender,
-            images,
-            isFeatured,
-            isPublished,
-            tags,
-            dimensions,
-            weight,
-            sku,
-            user: req.user._id // Reference to the admin user who created it
-        });
-        
-        const createdProduct = await product.save();
-        res.status(201).json(createdProduct);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Server Error");
-    }
-});
 
 // @route PUT /api/products/:id
 // @desc Update an existing product ID
@@ -78,8 +22,7 @@ router.put("/:id", protect, admin, async (req,res) => {
             sizes,
             colors,
             collections,
-            material, 
-            gender,
+            material,
             images,
             isFeatured,
             isPublished,
@@ -105,7 +48,6 @@ router.put("/:id", protect, admin, async (req,res) => {
             product.colors = colors || product.colors;
             product.collections = collections || product.collections;
             product.material = material || product.material;
-            product.gender = gender || product.gender;
             product.images = images || product.images;
             product.isFeatured = isFeatured !== undefined ? isFeatured : product.isFeatured;
             product.isPublished = isPublished !== undefined ? isPublished : product.isPublished;
@@ -152,7 +94,7 @@ router.delete("/:id", protect, admin, async (req, res) => {
 // @access Public
 router.get("/", async (req, res) => {
     try {
-        const {collection, size, color, gender, minPrice, maxPrice, sortBy,
+        const {collection, size, color, minPrice, maxPrice, sortBy,
             search, category, material, brand, limit
         } = req.query;
 
@@ -163,8 +105,8 @@ router.get("/", async (req, res) => {
             query.collections = collection;
         }
 
-        if(category && category.toLocaleLowerCase() !== "all") {
-            query.category = category;
+        if (category) {
+            query.category = { $in: category.split(",") };
         }
 
         if (material) {
@@ -180,11 +122,7 @@ router.get("/", async (req, res) => {
         }
 
         if (color) {
-            query.colors = { $in: [color]};
-        }
-
-        if (gender) {
-            query.gender = gender;
+            query.colors = { $in: color.split(",") };
         }
 
         if (minPrice || maxPrice) {
@@ -291,7 +229,6 @@ router.get("/similar/:id", async (req, res) => {
 
         const similarProducts = await Product.find({
             _id: { $ne: id}, // Exclude the current product ID
-            gender: product.gender,
             category: product.category,
         }).limit(4);
 

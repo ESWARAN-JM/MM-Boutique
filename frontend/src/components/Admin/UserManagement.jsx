@@ -60,7 +60,7 @@ const UserManagement = () => {
     };
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 pt-16">
         <h2 className="text-2xl font-bold mb-6">User Management</h2>
         {loading && <p>Loading...</p>}
         {error && <p>Error {error}</p>}

@@ -22,6 +22,15 @@ const ProductDetails = ({productId}) => {
 
     const productFetchId = productId || id;
 
+    const calculateDiscountPercentage = () => {
+        if (selectedProduct?.mrp && selectedProduct?.price) {
+            return Math.round(((selectedProduct.mrp - selectedProduct.price) / selectedProduct.mrp) * 100);
+        }
+        return 0;
+    };
+
+    const discountPercentage = calculateDiscountPercentage();
+
     useEffect(() => {
         if (productFetchId) {
             dispatch(fetchProductDetails(productFetchId));
@@ -80,7 +89,7 @@ const ProductDetails = ({productId}) => {
     }
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-24">
         {selectedProduct && (
         <div className="max-w-6xl mx-auto bg-white p-8 rounded-lg">
             <div className="flex flex-col md:flex-row">
@@ -113,14 +122,11 @@ const ProductDetails = ({productId}) => {
                 <h1 className="text-2xl md:text-3xl font-semibold mb-2">
                     {selectedProduct.name}
                 </h1>
-
-                <p className="text-lg text-gray-600 mb-1 line-through">
-                    {selectedProduct.originalPrice &&
-                    `${selectedProduct.originalPrice}`}
-                </p>
-                <p className="text-xl text-gray-500 mb-2">
-                    ${selectedProduct.price}
-                </p>
+                <div className="flex items-center space-x-3 mb-2">
+                                <p className="text-xl text-gray-500 line-through">₹{selectedProduct.mrp}</p>
+                                <p className="text-xl text-red-600 font-bold">₹{selectedProduct.price}</p>
+                                <p className="text-sm text-green-600 font-semibold">({discountPercentage}% OFF)</p>
+                            </div>
                  <p className="text-gray-600 mb-4">{selectedProduct.description}</p>
                  <div className="mb-4">
                     <p className="text-gray-700">Colors:</p>

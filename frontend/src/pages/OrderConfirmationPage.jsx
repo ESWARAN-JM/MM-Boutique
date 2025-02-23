@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { clearCart } from "../redux/slices/cartSlice";
 
 
@@ -26,7 +26,7 @@ const OrderConfirmationPage = () => {
     };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white">
+    <div className="max-w-4xl mx-auto p-6 bg-white pt-28">
         <h1 className="text-4xl font-bold text-center text-emerald-700 mb-8">
             Thank You for Your Order!
         </h1>
@@ -42,14 +42,15 @@ const OrderConfirmationPage = () => {
                         <p className="text-gray-500">
                             Order date: {new Date(checkout.createdAt).toLocaleString()}
                         </p>
-                    </div>
-                    {/*Estimated Delivery */}
-                    <div>
-                        <p className="text-emerald-700 text-sm">
+                        {/*Estimated Delivery */}
+                    
+                          <p className="text-emerald-700 text-sm">
                             Estimated Delivery:{" "}
                             {calculatedEstimatedDelivery(checkout.createdAt)}
                         </p>
                     </div>
+                    
+                    
                 </div>
                 {/*Ordered Items */}
                 <div className="mb-20">
@@ -78,7 +79,7 @@ const OrderConfirmationPage = () => {
                     {/*Payment Info */}
                     <div>
                         <h4 className="text-lg font-semibold mb-2">Payment</h4>
-                        <p className="text-gray-600">PayPal</p>
+                        <p className="text-gray-600">Razorpay</p>
                     </div>
 
                     {/*Deliver Info */}
@@ -92,6 +93,7 @@ const OrderConfirmationPage = () => {
                         </p>
                     </div>
                 </div>
+                <Link to={"/my-orders"}> <span className="flex justify-center pt-8 text-blue-600 hover:text-blue-300">View-Order Details</span></Link>
             </div>
         )}
     </div>

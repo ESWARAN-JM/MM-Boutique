@@ -40,21 +40,21 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="pt-24">
       <Hero />
       <GenderCollectionSection />
       <NewArrivals />
       {/*Best Seller */}
-      <h2 className="text-3xl text-center font-bold mb-4">Best Seller</h2>
+      <h2 className="text-3xl pt-8  text-center font-bold ">Best Deal</h2>
       {bestSellerProduct ? (
-        <ProductDetails productId={bestSellerProduct._id}/>
+       <div className="-mt-20"> <ProductDetails  productId={bestSellerProduct._id}  /></div>
       ) : (
-        <p className="text-center">Loading best seller product...</p>
+        <p className="text-center">Loading best deal product...</p>
       )}
 
       <div className="container mx-auto">
         <h2 className="text-3xl text-center font-bold mb-4">
-          Top Wears for Women
+          Top Collections for Women
         </h2>
         <ProductGrid products={products} loading={loading} error={error}/>
       </div>

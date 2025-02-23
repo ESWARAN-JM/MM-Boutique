@@ -43,7 +43,7 @@ export const updateOrderStatus = createAsyncThunk(
 );
 
 // delete an order
-export const deleteOder = createAsyncThunk(
+export const deleteOrder = createAsyncThunk(
     "adminOders/deleteOder",
     async (id, {rejectWithValue}) => {
         try {
@@ -105,7 +105,7 @@ const adminOrderSlice = createSlice({
             }
         })
         // Delete order
-        .addCase(deleteOder.fulfilled, (state, action) => {
+        .addCase(deleteOrder.fulfilled, (state, action) => {
             state.orders = state.orders.filter(
                 (order) => order._id !== action.payload
             );

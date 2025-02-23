@@ -26,7 +26,7 @@ const OrderManagement = () => {
     if (error) return <p>Error: {error}</p>
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 pt-16 ">
         <h2 className="text-2xl font-bold mb-6">Order Management</h2>
 
         
@@ -50,7 +50,7 @@ const OrderManagement = () => {
                                     #{order._id}
                                 </td>
                                 <td className="p-4">{order.user.name}</td>
-                                <td className="p-4">${order.totalPrice.toFixed(2)}</td>
+                                <td className="p-4">₹{order.totalPrice.toFixed(2)}</td>
                                 <td className="p-4">
                                     <select value={order.status} onChange={(e) => handleStatusChange(order._id, e.target.value)}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg

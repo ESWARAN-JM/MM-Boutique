@@ -14,10 +14,9 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    discountPrice: {
+    mrp: {
         type: Number,
         required: true,
-        default: 0,
     },
     countInStock: {
         type: Number,
@@ -35,6 +34,7 @@ const productSchema = new mongoose.Schema({
     },
     brand: {
         type: String,
+
     },
     sizes: {
         type: [String],
@@ -50,10 +50,7 @@ const productSchema = new mongoose.Schema({
     },
     material: {
         type: String,
-    },
-    gender: {
-        type: String,
-        enum: ["Men", "Women","Unisex"],
+        required: true,
     },
     images: [{
         url: {
@@ -62,6 +59,7 @@ const productSchema = new mongoose.Schema({
         },
         altText: {
             type: String,
+            required: true, 
         },
     },
   ],
@@ -75,10 +73,12 @@ const productSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
+    required: true,
     default: 0,
   },
   numReviews: {
     type: Number,
+    required: true,
     default: 0,
   },
   tags: [String],

@@ -8,7 +8,6 @@ export const fetchProductsByFilters = createAsyncThunk(
         collection,
         size,
         color,
-        gender,
         minPrice,
         maxPrice,
         sortBy,
@@ -22,7 +21,6 @@ export const fetchProductsByFilters = createAsyncThunk(
         if (collection) query.append("collection", collection);
         if (size) query.append("size", size);
         if (color) query.append("color", color);
-        if (gender) query.append("gender", gender);
         if (minPrice) query.append("minPrice", minPrice);
         if (maxPrice) query.append("maxPrice", maxPrice);
         if (sortBy) query.append("sortBy", sortBy);
@@ -51,7 +49,7 @@ export const fetchProductDetails = createAsyncThunk(
     }
 );
 
-// Async thunk to fetch similar products
+// Async thunk to fetch update products
 export const updateProduct = createAsyncThunk("products/updateProduct", 
     async ({id, productData }) => {
         const response = await axios.put(
@@ -90,7 +88,6 @@ const productsSlice = createSlice({
             category: "",
             size: "",
             color: "",
-            gender: "",
             brand: "",
             minPrice: "",
             maxPrice: "",
@@ -109,7 +106,6 @@ const productsSlice = createSlice({
             category: "",
             size: "",
             color: "",
-            gender: "",
             brand: "",
             minPrice: "",
             maxPrice: "",

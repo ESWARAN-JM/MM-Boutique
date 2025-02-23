@@ -16,7 +16,7 @@ const FeaturedCollection = () => {
                </h2>
                <p className="text-lg text-gray-600 mb-6">
                 Discover high-quality, comfortable clothing that effortlessly blends
-                fashion and function. designed to make you look and feel great everyday
+                fashion and function. Designed to make you look and feel great everyday
                 day.
                </p>
                <Link to="/collection/all" className="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-800">

@@ -17,11 +17,13 @@ import UserManagement from "./components/Admin/UserManagement";
 import ProductManagement from "./components/Admin/ProductManagement";
 import EditProductPage from "./components/Admin/EditProductPage";
 import OrderManagement from "./components/Admin/OrderManagement";
-
+import ScrollToTop from "./components/common/ScrollToTop";
 
 import {Provider} from "react-redux";
 import store from "./redux/store";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
+import AddProduct from "./components/Admin/AddProduct";
+import ConfirmOrder from "./components/Cart/confirmOrder";
 
 const App = () => {
   return (
@@ -29,6 +31,7 @@ const App = () => {
     <BrowserRouter
      future={{ v7_startTransition: true, v7_relativeSplatPath: true}}
     >
+      <ScrollToTop />
     <Toaster position="top-right" />
      <Routes>
       <Route path="/" element={<UserLayout/>}>
@@ -39,6 +42,7 @@ const App = () => {
           <Route path="collection/:collection" element={<CollectionPage/>} />  
           <Route path="product/:id" element={<ProductDetails />} />
           <Route path="checkout" element={<Checkout />} />
+          <Route path="ConfirmOrder" element={<ConfirmOrder />} />
           <Route path="order-confirmation" element={<OrderConfirmationPage />} />
           <Route path="order/:id" element={<OrderDetailsPage />} />
           <Route path="my-orders" element={<MyOrdersPage />} />
@@ -48,6 +52,7 @@ const App = () => {
       <Route path="users" element={<UserManagement />} />
       <Route path="products" element={<ProductManagement />} />
       <Route path="products/:id/edit" element={<EditProductPage />} />
+      <Route path="products/add-product" element={<AddProduct />} />
       <Route path="orders" element={<OrderManagement />} />
       </Route>
      </Routes>
