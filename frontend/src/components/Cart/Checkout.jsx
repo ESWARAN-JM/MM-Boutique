@@ -85,8 +85,8 @@ const Checkout = () => {
         }
     };
 
-    if (loading) return <p>Loading cart...</p>;
-    if (error) return <p>Error: {error}</p>;
+    if (loading) return <p className="pt-24">Loading cart...</p>;
+    if (error) return <p className="pt-24">Error: {error}</p>;
     if (!cart || !cart.products || cart.products.length === 0) {
         return <p>Your cart is empty</p>;
     }

@@ -19,8 +19,8 @@ const ProductManagement = () => {
         }
     };
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    if (loading) return <p className="pt-24">Loading...</p>;
+    if (error) return <p className="pt-24">Error: {error}</p>;
 
   return (
     <div className="max-w-7xl mx-auto p-6 pt-16">
