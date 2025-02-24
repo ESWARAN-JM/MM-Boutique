@@ -62,25 +62,27 @@ const Navbar = () => {
                 <Link to="/admin" className="block bg-black px-2 rounded text-sm text-white">
               Admin</Link>
               )}
-                <Link to="/profile" className=" text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100">
-                  <HiOutlineUser className="h-6 w-6 text-gray-900"/>
-                </Link>
-            <button onClick={toggleCartDrawer} className="text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100">
-              <HiOutlineShoppingBag className="h-6 w-6 " />
-              {cartItemCount > 0 && (
-                <span className="absolute -top-1  bg-rabbit-red text-white text-xs rounded-full px-2
-                py-0.5">
-                  {cartItemCount}
-                </span>
-              )}
-              
-            </button>
-            {/* Search  */}
+              {/* Search  */}
             <div className="overflow-hidden">
             <SearchBar className="h=6 w-6 "  /></div>
-            <button onClick={toggleNavDrawer} className=" md:hidden text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100">
+            
+                
+                <button onClick={toggleCartDrawer} className="relative text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100">
+  <HiOutlineShoppingBag className="h-6 w-6" />
+  
+  {cartItemCount > 0 && (
+    <span className="absolute top-0 right-0 -mt-1 -mr-2 bg-rabbit-red text-white text-xs font-bold rounded-full px-2 py-0.5">
+      {cartItemCount}
+    </span>
+  )}
+</button>
+<Link to="/profile" className=" text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100">
+                  <HiOutlineUser className="h-6 w-6 text-gray-900"/>
+                </Link>
+<button onClick={toggleNavDrawer} className=" md:hidden text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100">
               <FaBars  className="   h-6 w-5" />
             </button>
+            
         </div>
     </nav>
     <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer}/>
