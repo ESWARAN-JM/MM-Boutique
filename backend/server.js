@@ -14,8 +14,13 @@ const adminOrderRoutes = require("./routes/adminOrderRoutes");
 
 
 const app = express();
+app.use(cors({
+    origin: "https://mm-boutique.vercel.app", // Allow frontend domain
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true // If using cookies or authentication
+}));
 app.use(express.json());
-app.use(cors());
+
 
 dotenv.config();
 
