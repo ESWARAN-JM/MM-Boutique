@@ -17,13 +17,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const corsOptions = {
-    origin: "*",  // Allow all origins for now
+app.use(cors({
+    origin: process.env.FRONTEND_URL || "*",  
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
-};
-
-app.use(cors(corsOptions));
+}));
 
 app.use(express.json());
 
