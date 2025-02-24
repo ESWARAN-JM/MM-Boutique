@@ -1,6 +1,6 @@
 import {RiDeleteBin3Line}  from "react-icons/ri";
 import { useDispatch } from "react-redux";
-import { removeFromCart, updateCartItemQuantiy } from "../../redux/slices/cartSlice";
+import { removeFromCart, updateCartItemQuantity } from "../../redux/slices/cartSlice";
 
 const CartContent = ({cart, userId, guestId}) => {
     const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const CartContent = ({cart, userId, guestId}) => {
         const newQuantity = quantity + delta;
         if (newQuantity >= 1) {
             dispatch(
-                updateCartItemQuantiy({
+                updateCartItemQuantity({
                     productId,
                     quantity: newQuantity,
                     guestId,
