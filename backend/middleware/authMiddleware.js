@@ -17,12 +17,14 @@ const protect = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log("Decoded Token:", decoded); // Debugging
 
-        if (!decoded || !decoded.id) {
+        // Fix: Ensure correct user ID extraction
+        if (!decoded || !decoded.user || !decoded.user.id) {
             return res.status(401).json({ message: "Invalid token." });
         }
 
-        // Fetch user and exclude password
-        req.user = await User.findById(decoded.id).select("-password");
+        // Fetch user from DB and exclude password
+        req.user = await User.findById(decoded.user.id).select("-password");
+
         if (!req.user) {
             return res.status(404).json({ message: "User not found." });
         }

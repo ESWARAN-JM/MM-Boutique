@@ -31,13 +31,13 @@ const Navbar = () => {
   
   return (
     <>
-    <nav className="container mx-auto  flex items-center justify-between h-14  py-4 px-6 ">
+    <nav className="container  mx-auto  flex items-center justify-between h-14  py-4 px-6 ">
         {/*Left-Logo */}
-        <div className="   ">
+        
             <Link to="/" >
-            <img src="/mm.png" alt="M.M Boutique" className="h-40 -ml-8 w-auto object-contain"/>
+            <img src="/mm.png" alt="M.M Boutique" className="h-40 -ml-8 w-auto pointer-events-none object-contain "/>
             </Link>
-        </div>
+        
         {/*Center - Navigation Links */}
         <div className="hidden md:flex space-x-6">
             <Link to="/collection/all?category=Salwar" className="text-gray-700 hover:text-black text-sm font-medium uppercase">

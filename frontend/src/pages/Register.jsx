@@ -17,16 +17,16 @@ const Register = () => {
 
     // Get redirect parameter and check if it's checkout or something
     const redirect = new URLSearchParams(location.search).get("redirect") || "/";
-    const isCheckoutRedirect = redirect.includes("checkout");
+    const isCheckoutRedirect = redirect.includes("ConfirmOrder");
 
     useEffect(() => {
       if (user) {
         if (cart?.products.length > 0 && guestId) {
           dispatch(mergeCart({ guestId, user })).then(() => {
-            navigate(isCheckoutRedirect ? "/checkout" : "/");
+            navigate(isCheckoutRedirect ? "/ConfirmOrder" : "/");
           });
         } else {
-          navigate(isCheckoutRedirect ? "/checkout" : "/");
+          navigate(isCheckoutRedirect ? "/ConfirmOrder" : "/");
         }
       }
     }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
