@@ -33,9 +33,9 @@ app.use(express.json());
 
 // Connect to MongoDB with error handling
 connectDB()
-  .then(() => console.log("✅ Database Connected Successfully"))
+  .then(() => console.log(" Database Connected Successfully"))
   .catch((err) => {
-    console.error("❌ Database Connection Error:", err.message);
+    console.error(" Database Connection Error:", err.message);
     process.exit(1); // Exit the server if DB connection fails
   });
 
@@ -59,5 +59,5 @@ app.use("/api/admin/orders", adminOrderRoutes);
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
