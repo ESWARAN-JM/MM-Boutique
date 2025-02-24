@@ -81,11 +81,11 @@ const ProductDetails = ({productId}) => {
     };
 
     if (loading) {
-        return <p>Loading...</p>
+        return <p className="pt-24">Loading...</p>
     }
 
     if (error) {
-        return <p>Error: {error}</p>
+        return <p className="pt-24">Error: {error}</p>
     }
 
   return (

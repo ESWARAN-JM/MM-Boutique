@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 
 const ConfirmOrder = () => {
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6 pt-24">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6 pt-12">
             <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md text-center">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">Confirm Your Order!</h2>
-                
-                <p className="text-gray-600 mb-6"> Confirm by Contacting us: </p>
                 <p className="text-red-600 mb-6">Orders for 'Aari Work Designs' require confirmation via phone call before processing. </p>
+                <p className="text-gray-600 mb-6"> Confirm by Contacting us: </p>
+                
 
                 <div className="flex flex-col gap-4">
                     {/* Call Button */}
