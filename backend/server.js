@@ -17,26 +17,34 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Fix CORS issue
 app.use(
-    cors({
-      origin: "https://mm-boutique.vercel.app", // Allow only your frontend
-      credentials: true, // Allow credentials (cookies, auth headers)
-      methods: "GET,POST,PUT,DELETE", // Allowed methods
-      allowedHeaders: "Content-Type, Authorization", // Allowed headers
-    })
-  );
+  cors({
+    origin: "https://mm-boutique.vercel.app", // Allow only your frontend
+    credentials: true, // Allow credentials (cookies, auth headers)
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  })
+);
 
+// Ensure credentials are properly allowed in response
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://mm-boutique.vercel.app");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
+// Middleware
 app.use(express.json());
 
-
-
-
-
-//connect mongoDB
+// Connect to MongoDB
 connectDB();
 
+// Default API response
 app.get("/", (req, res) => {
-    res.send("WELCOME TO RABBIT API");
+  res.send("WELCOME TO RABBIT API");
 });
 
 // API Routes
@@ -47,12 +55,11 @@ app.use("/api/checkout", checkoutRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 
-//Admin
+// Admin Routes
 app.use("/api/admin/users", adminRoutes);
 app.use("/api/admin/products", productAdminRoutes);
 app.use("/api/admin/orders", adminOrderRoutes);
 
-
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-})
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
