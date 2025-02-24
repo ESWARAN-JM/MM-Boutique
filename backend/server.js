@@ -16,12 +16,14 @@ const adminOrderRoutes = require("./routes/adminOrderRoutes");
 const app = express();
 
 app.use(cors({
-    origin: "https://mm-boutique.vercel.app", 
-    methods: "GET, POST, PUT, DELETE",
-    allowedHeaders: "Content-Type, Authorization"
+    origin: "https://mm-boutique.vercel.app",
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    allowedHeaders: "Content-Type,Authorization",
+    credentials: true,
   }));
-app.use(express.json());
 
+app.use(express.json());
+app.options("*", cors());
 
 dotenv.config();
 
