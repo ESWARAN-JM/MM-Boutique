@@ -17,11 +17,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-    origin: process.env.FRONTEND_URL || "*",  
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(
+    cors({
+      origin: "https://mm-boutique.vercel.app", // Allow only your frontend
+      credentials: true, // Allow credentials (cookies, auth headers)
+      methods: "GET,POST,PUT,DELETE", // Allowed methods
+      allowedHeaders: "Content-Type, Authorization", // Allowed headers
+    })
+  );
 
 app.use(express.json());
 
