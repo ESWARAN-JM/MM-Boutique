@@ -12,12 +12,19 @@ const adminRoutes = require("./routes/adminRoutes");
 const productAdminRoutes = require("./routes/productAdminRoutes");
 const adminOrderRoutes = require("./routes/adminOrderRoutes");
 
+dotenv.config();
 
 const app = express();
-app.use(express.json());
-app.use(cors());
 
-dotenv.config();
+app.use(cors({
+    origin: ["https://mm-boutique.vercel.app"], // Replace with your actual frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+app.use(express.json());
+
+
 
 const PORT = process.env.PORT || 3000;
 
