@@ -29,7 +29,7 @@ const Topbar = () => {
 
         {/* Mobile View (Hidden on Desktop) */}
         <div className="flex md:hidden w-full  justify-between items-center">
-          <a href="https://www.instagram.com/mmboutique_collections?igsh=MWdvb2RsbnVuMTI2dQ==" className="hover:text-gray-300 ">
+          <a href="https://www.instagram.com/mmboutique_collections?igsh=MWdvb2RsbnVuMTI2dQ==" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 ">
             <IoLogoInstagram className="h-5 w-5" />
           </a>
 

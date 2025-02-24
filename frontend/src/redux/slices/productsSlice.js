@@ -25,7 +25,11 @@ export const fetchProductsByFilters = createAsyncThunk(
         if (maxPrice) query.append("maxPrice", maxPrice);
         if (sortBy) query.append("sortBy", sortBy);
         if (search) query.append("search", search);
-        if (category) query.append("category", category);
+        if (Array.isArray(category)) {
+            query.append("category", category.join(",")); // Convert array to string
+        } else if (category) {
+            query.append("category", category);
+        }
         if (material) query.append("material", material);
         if (brand) query.append("brand", brand);
         if (limit) query.append("limit", limit); // Fixed incorrect key
@@ -57,20 +61,28 @@ export const fetchProductDetails = createAsyncThunk(
 );
 
 // Async thunk to fetch update products
-export const updateProduct = createAsyncThunk("products/updateProduct", 
-    async ({ id, productData }) => {
-        const response = await axios.put(
-            `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
-            productData,
-            {
-                withCredentials: true,
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-                },
-            }
-        );
-        return response.data;
+export const updateProduct = createAsyncThunk(
+    "products/updateProduct",
+    async ({ id, productData }, { getState, rejectWithValue }) => {
+        const token = getState().auth?.userToken;
+        if (!token) return rejectWithValue("Unauthorized: No Token Provided");
+
+        try {
+            const response = await axios.put(
+                `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
+                productData,
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Update failed");
+        }
     }
 );
 
@@ -151,7 +163,7 @@ const productsSlice = createSlice({
             })
             .addCase(fetchProductDetails.fulfilled, (state, action) => {
                 state.loading = false;
-                state.selectedProduct = action.payload;
+                state.selectedProduct = action.payload || {};
             })
             .addCase(fetchProductDetails.rejected, (state, action) => {
                 state.loading = false;
@@ -183,7 +195,7 @@ const productsSlice = createSlice({
             })
             .addCase(fetchSimilarProducts.fulfilled, (state, action) => {
                 state.loading = false;
-                state.similarProducts = action.payload;
+                state.similarProducts = action.payload || [];
             })
             .addCase(fetchSimilarProducts.rejected, (state, action) => {
                 state.loading = false;
