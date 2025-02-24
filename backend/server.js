@@ -15,6 +15,7 @@ const adminOrderRoutes = require("./routes/adminOrderRoutes");
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
     origin: ["https://mm-boutique.vercel.app"], // Replace with your actual frontend URL
@@ -26,7 +27,7 @@ app.use(express.json());
 
 
 
-const PORT = process.env.PORT || 3000;
+
 
 //connect mongoDB
 connectDB();
