@@ -39,7 +39,7 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="pt-24">
+    <div className="pt-28 -mt-2">
       <Hero />
       <GenderCollectionSection />
       <NewArrivals />

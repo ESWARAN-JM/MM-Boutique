@@ -5,7 +5,7 @@ import { IoCartOutline } from "react-icons/io5";
 
 const GenderCollectionSection = () => {
   return (
-    <section className="py-16 px-4 lg:px-0">
+    <section className="py-8 px-4 lg:px-0">
         <div className="container mx-auto flex flex-col md:flex-row gap-8">
             
             <div className="relative flex-1">

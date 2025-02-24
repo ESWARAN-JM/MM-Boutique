@@ -31,11 +31,11 @@ const Navbar = () => {
   
   return (
     <>
-    <nav className="container mx-auto  flex items-center justify-between h-12 py-4 px-6 ">
+    <nav className="container mx-auto  flex items-center justify-between h-14  py-4 px-6 ">
         {/*Left-Logo */}
-        <div className="items-center  ">
+        <div className="   ">
             <Link to="/" >
-            <img src="/mm.png" alt="M.M Boutique" className="h-28 w-auto object-contain"/>
+            <img src="/mm.png" alt="M.M Boutique" className="h-40 -ml-8 w-auto object-contain"/>
             </Link>
         </div>
         {/*Center - Navigation Links */}
@@ -62,11 +62,11 @@ const Navbar = () => {
                 <Link to="/admin" className="block bg-black px-2 rounded text-sm text-white">
               Admin</Link>
               )}
-                <Link to="/profile" className="hover:text-black">
+                <Link to="/profile" className=" text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100">
                   <HiOutlineUser className="h-6 w-6 text-gray-900"/>
                 </Link>
-            <button onClick={toggleCartDrawer} className="relative hover:text-black">
-              <HiOutlineShoppingBag className="h-6 w-6 text-gray-900" />
+            <button onClick={toggleCartDrawer} className="text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100">
+              <HiOutlineShoppingBag className="h-6 w-6 " />
               {cartItemCount > 0 && (
                 <span className="absolute -top-1  bg-rabbit-red text-white text-xs rounded-full px-2
                 py-0.5">
@@ -77,9 +77,9 @@ const Navbar = () => {
             </button>
             {/* Search  */}
             <div className="overflow-hidden">
-            <SearchBar className="h=6 w-6 text-gray-700" /></div>
-            <button onClick={toggleNavDrawer} className=" md:hidden">
-              <FaBars  className=" text-gray-900" />
+            <SearchBar className="h=6 w-6 "  /></div>
+            <button onClick={toggleNavDrawer} className=" md:hidden text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100">
+              <FaBars  className="   h-6 w-5" />
             </button>
         </div>
     </nav>
