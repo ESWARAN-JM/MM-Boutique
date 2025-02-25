@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { FaBars } from "react-icons/fa";
+import { IoHome } from "react-icons/io5";
 
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -123,6 +124,7 @@ const Navbar = () => {
             <FaBars className="h-6 w-5" />
           </button>
         </div>
+
       </nav>
 
       {/* Overlay to prevent scrolling outside */}
@@ -175,6 +177,23 @@ const Navbar = () => {
             )}
           </nav>
         </div>
+          {/* Home Button Inside the Menu Bar */}
+  <div className="p-4 mt-8 flex flex-col bottom-0 items-center ">
+    <Link
+      to="/"
+      onClick={toggleNavDrawer}
+      className="flex items-center space-x-2 bg-rabbit-red text-white py-2 px-4 rounded-full shadow-lg hover:bg-green-800 transition"
+    >
+      < IoHome  className="h-6 w-6 text-white" />
+      <span className="text-lg font-semibold">Home</span>
+    </Link>
+
+    {/* Instructional Paragraph */}
+    <p className="mt-2 text-center text-sm text-gray-500">
+      You can also click on the logo in the navbar to return homepage.
+    </p>
+  </div>
+
       </div>
     </>
   );

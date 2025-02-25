@@ -215,7 +215,7 @@ const ProductDetails = ({productId}) => {
             
         </div>
         )}
-        <div className="mt-20 w-full ">
+        <div className="mt-12 w-full ">
                 <h2 className="text-2xl text-center font-medium mb-6">
                     You May Also Like
                 </h2>
