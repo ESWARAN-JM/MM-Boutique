@@ -113,7 +113,7 @@ const FilterSidebar = ({ isOpen, onClose }) => {
             ))}
 
             {/* Price Range Filter */}
-            <div className="mb-8">
+            <div className="mb-20">
                 <label className="block text-gray-600 font-medium mb-2">Price Range</label>
                 <input
                     type="range"

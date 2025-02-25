@@ -20,49 +20,40 @@ const Navbar = () => {
 
   const toggleNavDrawer = () => {
     setNavDrawerOpen(!navDrawerOpen);
+    if (!navDrawerOpen) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = ""; // Enable scrolling
+    }
   };
 
   const toggleCartDrawer = () => {
     setDrawerOpen(!drawerOpen);
+    if (!drawerOpen) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = ""; // Enable scrolling
+    }
   };
 
   // Close drawers when clicking outside
   const handleClickOutside = (e) => {
     if (drawerOpen && cartDrawerRef.current && !cartDrawerRef.current.contains(e.target)) {
       setDrawerOpen(false);
+      document.body.style.overflow = ""; // Enable scrolling
     }
     if (navDrawerOpen && navDrawerRef.current && !navDrawerRef.current.contains(e.target)) {
       setNavDrawerOpen(false);
-    }
-  };
-
-  // Close drawers when scrolling outside
-  const handleScroll = (e) => {
-    if (drawerOpen || navDrawerOpen) {
-      const cartDrawer = cartDrawerRef.current;
-      const navDrawer = navDrawerRef.current;
-
-      // Check if the scroll event is happening inside the cart or nav drawer
-      if (
-        (cartDrawer && cartDrawer.contains(e.target)) ||
-        (navDrawer && navDrawer.contains(e.target))
-      ) {
-        return; // Do nothing if scrolling inside the drawers
-      }
-
-      // If scrolling outside, close the drawers
-      setDrawerOpen(false);
-      setNavDrawerOpen(false);
+      document.body.style.overflow = ""; // Enable scrolling
     }
   };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("scroll", handleScroll, true); // Capture scroll events
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("scroll", handleScroll, true);
+      document.body.style.overflow = ""; // Ensure scrolling is enabled when unmounting
     };
   }, [drawerOpen, navDrawerOpen]);
 
@@ -152,10 +143,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation & Overlay */}
       {navDrawerOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={toggleNavDrawer}
-        ></div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggleNavDrawer}></div>
       )}
 
       <div

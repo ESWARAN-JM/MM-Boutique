@@ -140,19 +140,21 @@ const ProductDetails = ({productId}) => {
                             <button 
                             key={color} 
                             onClick={() => setSelectedColor(color)}
-                            className="w-8 h-8 rounded-full border-4 relative"
+                            className={`w-8 h-8 rounded-full border-2 relative transition-all ${
+                                selectedColor === color ? "ring-2 ring-offset-2" : ""
+                            }`}
                             style={{
                                 backgroundColor: color.toLowerCase(),
-                                filter: "brightness(0.5)",
-                                borderColor: selectedColor === color 
-                                    ? (color.toLowerCase() === "white" ? "black" : "white") 
-                                    : "gray",
-                                outline: selectedColor === color ? "2px solid black" : "none",
-                                outlineOffset: "2px",
+                                borderColor: selectedColor === color ? "black" : "gray",
+                                ringColor: selectedColor === color ? (color.toLowerCase() === "white" ? "black" : "white") : "",
                             }}
                         >
-                            {selectedColor === color && color.toLowerCase() === "white" && (
-                                <span className="absolute inset-0 border-2 border-black rounded-full"></span>
+                            {selectedColor === color && (
+                                <span 
+                                    className={`absolute inset-0 flex items-center justify-center ${
+                                        color.toLowerCase() === "white" ? "border-2 border-black rounded-full" : "border-2 border-white rounded-full"
+                                    }`}
+                                ></span>
                             )}
                         </button>
                         ))}
