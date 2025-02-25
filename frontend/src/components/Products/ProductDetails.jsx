@@ -137,15 +137,24 @@ const ProductDetails = ({productId}) => {
                     <p className="text-gray-700">Colors:</p>
                     <div className="flex gap-2 mt-2">
                         {selectedProduct.colors.map((color) =>(
-                            <button key={color} 
-                            onClick={()=> setSelectedColor(color)}
-                            className={`w-8 h-8 rounded-full border ${
-                                selectedColor === color ? "border-4 border-black" : "border-gray-300"
-                            }`}
+                            <button 
+                            key={color} 
+                            onClick={() => setSelectedColor(color)}
+                            className="w-8 h-8 rounded-full border-4 relative"
                             style={{
-                                backgroundColor: color.toLocaleLowerCase(),
-                                filter:"brightness(0.5)",
-                            }} ></button>
+                                backgroundColor: color.toLowerCase(),
+                                filter: "brightness(0.5)",
+                                borderColor: selectedColor === color 
+                                    ? (color.toLowerCase() === "white" ? "black" : "white") 
+                                    : "gray",
+                                outline: selectedColor === color ? "2px solid black" : "none",
+                                outlineOffset: "2px",
+                            }}
+                        >
+                            {selectedColor === color && color.toLowerCase() === "white" && (
+                                <span className="absolute inset-0 border-2 border-black rounded-full"></span>
+                            )}
+                        </button>
                         ))}
                     </div>
                  </div>
@@ -201,8 +210,8 @@ const ProductDetails = ({productId}) => {
                  </div>
                 </div>
             </div>
-            <div className="mt-20">
-                <h2 className="text-2xl text-center font-medium mb-4">
+            <div className="mt-20 max-w-7xl mx-auto px-4 md:px-8">
+                <h2 className="text-2xl text-center font-medium mb-6">
                     You May Also Like
                 </h2>
                 <ProductGrid products={similarProducts} loading={loading} error={error}/>

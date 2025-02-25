@@ -11,6 +11,7 @@ const Checkout = () => {
     const dispatch = useDispatch();
     const {cart, loading, error} = useSelector((state) => state.cart);
     const {user} = useSelector((state) => state.auth);
+    const [processing, setProcessing] = useState(false); // Payment processing state
 
 
     const [checkoutId, setCheckoutId] = useState(null);
@@ -49,10 +50,11 @@ const Checkout = () => {
     };
 
     const handlePaymentSuccess = async (details) => {
+        setProcessing(true); // Start processing
         try {
             const response = await axios.put(
                 `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/pay`,
-                {paymentStatus: "paid", paymentDetails: details },
+                { paymentStatus: "paid", paymentDetails: details },
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("userToken")}`,
@@ -60,9 +62,11 @@ const Checkout = () => {
                 }
             );
             
-            await handleFinalizeCheckout(checkoutId); // Finalize checkout if pyament is successful
+            await handleFinalizeCheckout(checkoutId); // Finalize checkout if payment is successful
         } catch (error) {
             console.error(error);
+        } finally {
+            setProcessing(false); // Stop processing
         }
     };
 
@@ -205,22 +209,37 @@ const Checkout = () => {
                         className="w-full p-2 border rounded" required />
                 </div>
                 <div className="mt-6">
-                    {!checkoutId ? (
-                        <button type="submit" 
-                        className="w-full bg-black text-white py-3 rounded">
-                            Continue to Payment</button>
-                    ) : (
-                        <div>
-                            <h3 className="text-lg mb-4">Pay with Razorpay</h3>
-                            {/*Rayzorpay Component*/}
-                            <RazorpayButton
-                            amount={cart.totalPrice}
-                            onSuccess={handlePaymentSuccess}
-                            onError={(err) => alert ("Payment failed. Try again.")}
-                            />
-                        </div>
-                    )}
+    {!checkoutId ? (
+        <button type="submit" className="w-full bg-black text-white py-3 rounded">
+            Continue to Payment
+        </button>
+    ) : (
+        <div>
+            <h3 className="text-lg mb-4">Pay with Razorpay</h3>
+            
+            {processing ? (
+                <div className="flex items-center justify-center py-4">
+                    <svg className="animate-spin h-6 w-6 mr-2 text-black" 
+                         xmlns="http://www.w3.org/2000/svg" 
+                         fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" 
+                              d="M4 12a8 8 0 018-8v8H4z">
+                        </path>
+                    </svg>
+                    <p className="text-lg font-semibold">Processing Payment...</p>
                 </div>
+            ) : (
+                <RazorpayButton
+                    amount={cart.totalPrice}
+                    onSuccess={handlePaymentSuccess}
+                    onError={(err) => alert("Payment failed. Try again.")}
+                    disabled={processing} // Disable button when processing
+                />
+            )}
+        </div>
+    )}
+</div>
             </form>
         </div>
         {/*Right Section */}

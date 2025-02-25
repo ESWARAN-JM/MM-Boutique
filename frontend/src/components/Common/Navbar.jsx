@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
-import {
-  HiOutlineUser,
-  HiOutlineShoppingBag,
-} from "react-icons/hi2";
+import { HiOutlineUser, HiOutlineShoppingBag } from "react-icons/hi2";
 import SearchBar from "./SearchBar";
 import CartDrawer from "../Layout/CartDrawer";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { FaBars } from "react-icons/fa";
@@ -13,12 +10,13 @@ import { FaBars } from "react-icons/fa";
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
+  const cartDrawerRef = useRef(null);
+  const navDrawerRef = useRef(null);
   const { cart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
 
   const cartItemCount =
-    cart?.products?.reduce((total, product) => total + product.quantity, 0) ||
-    0;
+    cart?.products?.reduce((total, product) => total + product.quantity, 0) || 0;
 
   const toggleNavDrawer = () => {
     setNavDrawerOpen(!navDrawerOpen);
@@ -27,6 +25,46 @@ const Navbar = () => {
   const toggleCartDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+
+  // Close drawers when clicking outside
+  const handleClickOutside = (e) => {
+    if (drawerOpen && cartDrawerRef.current && !cartDrawerRef.current.contains(e.target)) {
+      setDrawerOpen(false);
+    }
+    if (navDrawerOpen && navDrawerRef.current && !navDrawerRef.current.contains(e.target)) {
+      setNavDrawerOpen(false);
+    }
+  };
+
+  // Close drawers when scrolling outside
+  const handleScroll = (e) => {
+    if (drawerOpen || navDrawerOpen) {
+      const cartDrawer = cartDrawerRef.current;
+      const navDrawer = navDrawerRef.current;
+
+      // Check if the scroll event is happening inside the cart or nav drawer
+      if (
+        (cartDrawer && cartDrawer.contains(e.target)) ||
+        (navDrawer && navDrawer.contains(e.target))
+      ) {
+        return; // Do nothing if scrolling inside the drawers
+      }
+
+      // If scrolling outside, close the drawers
+      setDrawerOpen(false);
+      setNavDrawerOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("scroll", handleScroll, true); // Capture scroll events
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("scroll", handleScroll, true);
+    };
+  }, [drawerOpen, navDrawerOpen]);
 
   return (
     <>
@@ -58,10 +96,7 @@ const Navbar = () => {
         {/* Right - Icons */}
         <div className="flex items-center space-x-4">
           {user && user.role === "admin" && (
-            <Link
-              to="/admin"
-              className="block bg-black px-2 rounded text-sm text-white"
-            >
+            <Link to="/admin" className="block bg-black px-2 rounded text-sm text-white">
               Admin
             </Link>
           )}
@@ -102,7 +137,18 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
+      {/* Cart Drawer */}
+      {drawerOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggleCartDrawer}></div>
+      )}
+      <div
+        ref={cartDrawerRef}
+        className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${
+          drawerOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
+      </div>
 
       {/* Mobile Navigation & Overlay */}
       {navDrawerOpen && (
@@ -113,6 +159,7 @@ const Navbar = () => {
       )}
 
       <div
+        ref={navDrawerRef}
         className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:w-1/3 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${
           navDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
