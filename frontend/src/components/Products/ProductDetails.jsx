@@ -94,7 +94,7 @@ const ProductDetails = ({productId}) => {
       );
 
   return (
-    <div className="p-6 pt-24">
+    <div className=" pt-24">
         {selectedProduct && (
         <div className="max-w-6xl mx-auto bg-white p-8 rounded-lg">
             <div className="flex flex-col md:flex-row">

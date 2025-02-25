@@ -83,7 +83,7 @@ const CollectionPage = () => {
 
       {/* Products Section */}
       <div className={`flex-grow p-4 pt-8 lg:pt-24 ${isSidebarOpen ? "overflow-hidden" : ""}`}>
-        <h2 className="text-2xl uppercase mb-4">All Collections</h2>
+        <h2 className="text-2xl uppercase mb-4">Collections</h2>
         <SortOptions />
         <ProductGrid products={products} loading={loading} error={error} />
       </div>
