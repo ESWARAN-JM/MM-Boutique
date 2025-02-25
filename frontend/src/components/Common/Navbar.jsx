@@ -18,42 +18,39 @@ const Navbar = () => {
   const cartItemCount =
     cart?.products?.reduce((total, product) => total + product.quantity, 0) || 0;
 
+  // Prevent scrolling when a drawer is open
+  useEffect(() => {
+    if (drawerOpen || navDrawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [drawerOpen, navDrawerOpen]);
+
   const toggleNavDrawer = () => {
     setNavDrawerOpen(!navDrawerOpen);
-    if (!navDrawerOpen) {
-      document.body.style.overflow = "hidden"; // Disable scrolling
-    } else {
-      document.body.style.overflow = ""; // Enable scrolling
-    }
+    setDrawerOpen(false); // Close cart drawer when opening menu
   };
 
   const toggleCartDrawer = () => {
     setDrawerOpen(!drawerOpen);
-    if (!drawerOpen) {
-      document.body.style.overflow = "hidden"; // Disable scrolling
-    } else {
-      document.body.style.overflow = ""; // Enable scrolling
-    }
+    setNavDrawerOpen(false); // Close menu when opening cart drawer
   };
 
   // Close drawers when clicking outside
   const handleClickOutside = (e) => {
     if (drawerOpen && cartDrawerRef.current && !cartDrawerRef.current.contains(e.target)) {
       setDrawerOpen(false);
-      document.body.style.overflow = ""; // Enable scrolling
     }
     if (navDrawerOpen && navDrawerRef.current && !navDrawerRef.current.contains(e.target)) {
       setNavDrawerOpen(false);
-      document.body.style.overflow = ""; // Enable scrolling
     }
   };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      document.body.style.overflow = ""; // Ensure scrolling is enabled when unmounting
     };
   }, [drawerOpen, navDrawerOpen]);
 
@@ -94,7 +91,7 @@ const Navbar = () => {
 
           {/* Search */}
           <div className="overflow-hidden">
-            <SearchBar className="h=6 w-6" />
+            <SearchBar className="h-6 w-6" />
           </div>
 
           {/* Cart */}
@@ -104,7 +101,7 @@ const Navbar = () => {
           >
             <HiOutlineShoppingBag className="h-6 w-6" />
             {cartItemCount > 0 && (
-              <span className="absolute top-0 right-0 -mt-1 -mr-2 bg-rabbit-red text-white text-xs font-bold rounded-full px-2 py-0.5">
+              <span className="absolute top-0 right-0 -mt-1 -mr-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5">
                 {cartItemCount}
               </span>
             )}
@@ -128,27 +125,25 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Cart Drawer */}
-      {drawerOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggleCartDrawer}></div>
+      {/* Overlay to prevent scrolling outside */}
+      {(drawerOpen || navDrawerOpen) && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={handleClickOutside}></div>
       )}
+
+      {/* Cart Drawer */}
       <div
         ref={cartDrawerRef}
-        className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${
+        className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 overflow-y-auto ${
           drawerOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
       </div>
 
-      {/* Mobile Navigation & Overlay */}
-      {navDrawerOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggleNavDrawer}></div>
-      )}
-
+      {/* Mobile Navigation */}
       <div
         ref={navDrawerRef}
-        className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:w-1/3 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${
+        className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:w-1/3 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 overflow-y-auto ${
           navDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

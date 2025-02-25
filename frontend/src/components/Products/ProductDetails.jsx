@@ -213,11 +213,28 @@ const ProductDetails = ({productId}) => {
                 </div>
             </div>
             <div className="mt-20 max-w-7xl mx-auto px-4 md:px-8">
-                <h2 className="text-2xl text-center font-medium mb-6">
-                    You May Also Like
-                </h2>
-                <ProductGrid products={similarProducts} loading={loading} error={error}/>
-            </div>
+  <h2 className="text-2xl text-center font-medium mb-6">You May Also Like</h2>
+
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {similarProducts.length > 0 ? (
+      similarProducts.map((product) => (
+        <div key={product._id} className="bg-white shadow-md rounded-lg p-3">
+          <Link to={`/product/${product._id}`}>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-40 object-cover rounded-md"
+            />
+            <p className="mt-2 text-sm font-medium">{product.name}</p>
+            <p className="text-gray-500 text-sm">₹ {product.price.toLocaleString()}</p>
+          </Link>
+        </div>
+      ))
+    ) : (
+      <p className="text-gray-500 text-center col-span-4">No related products found.</p>
+    )}
+  </div>
+</div>
         </div>
         )}
     </div>
