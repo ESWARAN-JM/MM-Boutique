@@ -133,7 +133,7 @@ const Navbar = () => {
       {/* Cart Drawer */}
       <div
         ref={cartDrawerRef}
-        className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 overflow-y-auto ${
+        className={`fixed top-0 right-0 w-96 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 overflow-y-auto ${
           drawerOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
