@@ -27,7 +27,7 @@ const CartContent = ({ cart, userId, guestId }) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col px-6 pt-4">
+    <div className="w-full h-full flex flex-col pt-4"> {/* Removed px-6 to avoid left gap */}
       {cart.products.length > 0 ? (
         cart.products.map((product, index) => (
           <div key={index} className="flex w-full items-start justify-between py-4 border-b">
@@ -35,7 +35,7 @@ const CartContent = ({ cart, userId, guestId }) => {
             <img src={product.image} alt={product.name} className="w-20 h-24 object-cover rounded" />
 
             {/* Right - Product Details */}
-            <div className="flex-1 flex flex-col justify-between ml-3">
+            <div className="flex-1 flex flex-col justify-between ml-2"> {/* Reduced ml-3 to ml-2 */}
               {/* Product Name */}
               <h3 className="text-sm font-medium">{product.name}</h3>
 

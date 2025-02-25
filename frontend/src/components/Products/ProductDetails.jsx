@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {toast} from "sonner";
-import { Link, useParams } from "react-router-dom";
+import ProductGrid from "./ProductGrid";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductDetails, fetchSimilarProducts } from "../../redux/slices/productsSlice";
 import { addToCart } from "../../redux/slices/cartSlice";
@@ -115,7 +116,7 @@ const ProductDetails = ({productId}) => {
                 {/* Mobile Thumbnail*/}
                 <div className="md:hidden flex overscroll-x-scroll space-x-4 mb-4">
                     {selectedProduct.images.map((image,index) => (
-                        <img key={index} src={image.url} alt={image.altText || `Thumbnail $ {index}`}
+                        <img key={index} src={image.url} alt={image.altText || `Thumbnail ${index}`}
                         className={`w-20 h-20 object-cover rounded-lg cursor-pointer border ${mainImage == image.url ? "border-black" : "border-gray-300"}`}
                         onClick={() => setMainImage(image.url)} />
                     ))
@@ -211,31 +212,15 @@ const ProductDetails = ({productId}) => {
                  </div>
                 </div>
             </div>
-            <div className="mt-20 max-w-7xl mx-auto px-4 md:px-8">
-  <h2 className="text-2xl text-center font-medium mb-6">You May Also Like</h2>
-
-  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    {similarProducts.length > 0 ? (
-      similarProducts.map((product) => (
-        <div key={product._id} className="bg-white shadow-md rounded-lg p-3">
-          <Link to={`/product/${product._id}`}>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-40 object-cover rounded-md"
-            />
-            <p className="mt-2 text-sm font-medium">{product.name}</p>
-            <p className="text-gray-500 text-sm">₹ {product.price.toLocaleString()}</p>
-          </Link>
-        </div>
-      ))
-    ) : (
-      <p className="text-gray-500 text-center col-span-4">No related products found.</p>
-    )}
-  </div>
-</div>
+            
         </div>
         )}
+        <div className="mt-20 w-full px-4 md:px-8">
+                <h2 className="text-2xl text-center font-medium mb-6">
+                    You May Also Like
+                </h2>
+                <ProductGrid products={similarProducts} loading={loading} error={error}/>
+            </div>
     </div>
   );
 };
