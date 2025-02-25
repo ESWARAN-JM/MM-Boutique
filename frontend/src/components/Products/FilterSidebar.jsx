@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { ChevronUp, ChevronDown, X } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
-const FilterSidebar = () => {
+const FilterSidebar = ({ isOpen, onClose }) => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const navigate = useNavigate();
     const [filters, setFilters] = useState({
         category: [],
         color: [],
@@ -12,17 +11,16 @@ const FilterSidebar = () => {
         material: [],
         brand: [],
         minPrice: 0,
-        maxPrice: 5000,
+        maxPrice: 10000,
     });
 
-    const [priceRange, setPriceRange] = useState([0, 5000]);
-    const [isDragging, setIsDragging] = useState(false);
     const [expanded, setExpanded] = useState({});
+    const [priceRange, setPriceRange] = useState([0, 10000]);
 
     const categories = ["Salwar", "Saree", "Gown", "Aari Blouse", "Inner Wear"];
     const colors = ["Red", "Blue", "Black", "Green", "Yellow", "Gray", "White", "Pink", "Orange", "Navy"];
     const sizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
-    const materials = ["Cotton", "Rayon", "Netted Fabric","Georgette", "Silk"];
+    const materials = ["Cotton", "Rayon", "Netted Fabric", "Georgette", "Silk"];
     const brands = ["Liva", "Avaasa", "Pranjul", "Softy", "Twin birds", "Prithvi", "Mahavir"];
 
     useEffect(() => {
@@ -33,24 +31,24 @@ const FilterSidebar = () => {
             size: params.size ? params.size.split(",") : [],
             material: params.material ? params.material.split(",") : [],
             brand: params.brand ? params.brand.split(",") : [],
-            minPrice: params.minPrice || 0,
-            maxPrice: params.maxPrice || 5000,
+            minPrice: Number(params.minPrice) || 0,
+            maxPrice: Number(params.maxPrice) || 10000,
         });
-        setPriceRange([0, params.maxPrice || 5000]);
+        setPriceRange([0, Number(params.maxPrice) || 10000]);
     }, [searchParams]);
 
     const handleFilterChange = (e) => {
         const { name, value, checked } = e.target;
-        let newFilters = { ...filters };
-    
+        let updatedFilters = { ...filters };
+
         if (checked) {
-            newFilters[name] = [...new Set([...newFilters[name], value])]; 
+            updatedFilters[name] = [...new Set([...updatedFilters[name], value])];
         } else {
-            newFilters[name] = newFilters[name].filter((item) => item !== value);
+            updatedFilters[name] = updatedFilters[name].filter((item) => item !== value);
         }
-    
-        setFilters(newFilters);
-        updateURLParams(newFilters);
+
+        setFilters(updatedFilters);
+        updateURLParams(updatedFilters);
     };
 
     const updateURLParams = (newFilters) => {
@@ -63,60 +61,64 @@ const FilterSidebar = () => {
             }
         });
         setSearchParams(params);
-        navigate(`?${params.toString()}`);
     };
 
     const handlePriceChange = (e) => {
-        const newPrice = e.target.value;
-        setPriceRange([0, newPrice]);
-        setIsDragging(true);
+        const newMaxPrice = Number(e.target.value);
+        setPriceRange([0, newMaxPrice]);
+        setFilters({ ...filters, maxPrice: newMaxPrice });
     };
 
     const handlePriceCommit = () => {
-        setIsDragging(false);
-        const newFilters = { ...filters, minPrice: 0, maxPrice: priceRange[1] };
-        setFilters(newFilters);
-        updateURLParams(newFilters);
+        updateURLParams({ ...filters, maxPrice: priceRange[1] });
     };
 
     return (
-        <div className="p-4 py-28">
-            <h3 className="text-xl font-medium text-gray-800 mb-4">Filters</h3>
-            {[{ label: "Category", options: categories, key: "category", type: "checkbox"  },
-              { label: "Colors", options: colors, key: "color", type: "checkbox"  },
-              { label: "Size", options: sizes, key: "size", type: "checkbox" },
-              { label: "Material", options: materials, key: "material", type: "checkbox" },
-              { label: "Brand", options: brands, key: "brand", type: "checkbox" }].map(({ label, options, key, type }) => (
+        <div
+            className={`bg-white shadow-lg p-4 pt-24 transition-transform duration-300 overflow-y-auto
+                ${isOpen ? "fixed top-0 left-0 z-50 w-64 h-full lg:static" : "hidden"} 
+                lg:block lg:h-[90vh] lg:w-64`}
+        >
+            {/* Close Button (Only for Mobile) */}
+            <button className="lg:hidden absolute top-16 right-4" onClick={onClose}>
+                <X size={24} />
+            </button>
+
+            <h3 className="text-xl font-medium text-gray-800 mb-8">Filters</h3>
+
+            {[{ label: "Category", options: categories, key: "category" },
+              { label: "Colors", options: colors, key: "color" },
+              { label: "Size", options: sizes, key: "size" },
+              { label: "Material", options: materials, key: "material" },
+              { label: "Brand", options: brands, key: "brand" }].map(({ label, options, key }) => (
                 <div key={key} className="mb-6">
-                    <button onClick={() => setExpanded({ ...expanded, [key]: !expanded[key] })} className="flex items-center justify-between w-full text-gray-600 font-medium mb-2">
+                    <button
+                        onClick={() => setExpanded((prev) => ({ ...prev, [key]: !prev[key] }))}
+                        className="flex items-center justify-between w-full text-gray-600 font-medium mb-2"
+                    >
                         {label} {expanded[key] ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                     </button>
                     {expanded[key] && (
                         <div>
                             {options.map((option) => (
-    <div key={option} className="flex items-center mb-1">
-        <input
-            type="checkbox"
-            name={key}
-            value={option}
-            onChange={handleFilterChange}
-            checked={filters[key]?.includes(option)}
-            className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
-        />
-        <span className="text-gray-700">{option}</span>
-    </div>
-))}
+                                <div key={option} className="flex items-center mb-1">
+                                    <input type="checkbox" name={key} value={option} onChange={handleFilterChange} checked={filters[key]?.includes(option)}
+                                        className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300" />
+                                    <span className="text-gray-700">{option}</span>
+                                </div>
+                            ))}
                         </div>
                     )}
                 </div>
             ))}
+
+            {/* Price Range Filter */}
             <div className="mb-8">
                 <label className="block text-gray-600 font-medium mb-2">Price Range</label>
                 <input
                     type="range"
-                    name="priceRange"
                     min={0}
-                    max={5000}
+                    max={10000}
                     value={priceRange[1]}
                     onChange={handlePriceChange}
                     onMouseUp={handlePriceCommit}

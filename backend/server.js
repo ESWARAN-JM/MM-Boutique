@@ -41,7 +41,7 @@ connectDB()
 
 // Default API response
 app.get("/", (req, res) => {
-  res.send("WELCOME TO RABBIT API");
+  res.send("WELCOME TO MM BOUTIQUE SERVER");
 });
 
 // API Routes

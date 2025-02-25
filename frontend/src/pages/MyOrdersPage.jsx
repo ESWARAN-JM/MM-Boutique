@@ -17,9 +17,18 @@ const MyOrdersPage = () => {
         navigate(`/order/${orderId}`);
     };
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
-
+    if (loading) return (
+        <div className="absolute top-32 left-1/2 transform -translate-x-1/2 bg-white shadow-md px-6 py-3 rounded-lg flex items-center gap-2">
+          <div className="w-5 h-5 border-4 border-gray-300 border-t-gray-700 rounded-full animate-spin"></div>
+          <span className="text-gray-700 font-medium">Loading...</span>
+        </div>
+      );
+      
+      if (error) return (
+        <div className="absolute top-32 left-1/2 transform -translate-x-1/2 bg-red-100 shadow-md px-6 py-3 rounded-lg text-red-700 font-semibold">
+          ⚠️ Error: {error}
+        </div>
+      );
     
   return (
     <div className="max-w-7xl pt-28 lg:pt-28 mx-auto p-4 sm:p-6">

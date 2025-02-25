@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 
 const ProductGrid = ({ products, loading, error }) => {
-  if (loading) {
-    return <p className="pt-24">Loading...</p>
-  }
-
-  if(error) {
-    return <p className="pt-24">Error: {error}</p>
-  }
-
+  if (loading) return (
+    <div className="absolute top-32 left-1/2 transform -translate-x-1/2 bg-white shadow-md px-6 py-3 rounded-lg flex items-center gap-2">
+      <div className="w-5 h-5 border-4 border-gray-300 border-t-gray-700 rounded-full animate-spin"></div>
+      <span className="text-gray-700 font-medium">Loading...</span>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="absolute top-32 left-1/2 transform -translate-x-1/2 bg-red-100 shadow-md px-6 py-3 rounded-lg text-red-700 font-semibold">
+      ⚠️ Error: {error}
+    </div>
+  );
   const calculateDiscountPercentage = (originalPrice, discountPrice) => {
     return Math.round(((originalPrice - discountPrice) / originalPrice) * 100);
   };

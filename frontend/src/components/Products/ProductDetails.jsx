@@ -80,13 +80,18 @@ const ProductDetails = ({productId}) => {
           });
     };
 
-    if (loading) {
-        return <p className="pt-24">Loading...</p>
-    }
-
-    if (error) {
-        return <p className="pt-24">Error: {error}</p>
-    }
+    if (loading) return (
+        <div className="absolute top-32 left-1/2 transform -translate-x-1/2 bg-white shadow-md px-6 py-3 rounded-lg flex items-center gap-2">
+          <div className="w-5 h-5 border-4 border-gray-300 border-t-gray-700 rounded-full animate-spin"></div>
+          <span className="text-gray-700 font-medium">Loading...</span>
+        </div>
+      );
+      
+      if (error) return (
+        <div className="absolute top-32 left-1/2 transform -translate-x-1/2 bg-red-100 shadow-md px-6 py-3 rounded-lg text-red-700 font-semibold">
+          ⚠️ Error: {error}
+        </div>
+      );
 
   return (
     <div className="p-6 pt-24">
@@ -171,7 +176,7 @@ const ProductDetails = ({productId}) => {
 
                  <button onClick={handleAddToCart} 
                  disabled={isButtonDisabled}
-                 className={`bg-black text-white py-2px6 rounded w-full mb-4 ${
+                 className={`bg-black text-white py-2 px-6 rounded w-full mb-4 ${
                     isButtonDisabled
                     ? "cursor-not-allowed opacity-50"
                     : "hover:bg-gray-900"

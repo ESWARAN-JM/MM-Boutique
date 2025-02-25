@@ -132,11 +132,7 @@ router.get("/", async (req, res) => {
         }
 
         if (search) {
-            query.$or = [
-                { name: { $regex: search, $options: "i" } },
-                { description: { $regex: search, $options: "i" } },
-                { category: { $regex: search, $options: "i" } },
-             ];
+            query.$text = { $search: search };
         }
 
         // Sort Logic
@@ -156,16 +152,22 @@ router.get("/", async (req, res) => {
                                 break;
             }
         }
+        // If searching, sort results by text relevance
+        if (search) {
+            sort = { score: { $meta: "textScore" }, ...sort };
+        }
 
         // Fetch products and apply sorrting and limit
         let products = await Product.find(query)
-           .sort(sort)
-           .limit(Number(limit) || 0);
-           res.json(products);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Server Error");
-    }
+        .sort(sort)
+        .limit(Number(limit) || 0)
+        .exec();
+
+    res.json(products);
+} catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+}
 });
 
 // @route GET /api/products/best-seller
