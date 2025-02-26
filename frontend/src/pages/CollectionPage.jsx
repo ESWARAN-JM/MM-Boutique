@@ -63,32 +63,35 @@ const CollectionPage = () => {
 
   return (
     <div ref={containerRef} className="flex flex-col lg:flex-row pt-28 lg:pt-12">
-      {/* Mobile Filter Button */}
-      
+      {/* Filter & Products Container */}
+      <div className="flex w-full">
+        {/* Filter Sidebar */}
+        <div
+          ref={sidebarRef}
+          className={`${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+          fixed shadow-md inset-0 z-40 top-16 left-0 w-64 h-[90vh] bg-white overflow-y-auto transition-transform duration-300 
+          lg:static lg:translate-x-0 lg:h-[90vh] lg:flex-[0_0_18rem] lg:w-72`}
+        >
+          <FilterSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+        </div>
 
-      {/* Filter Sidebar */}
-      <div 
-        ref={sidebarRef} 
-        className={`${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} 
-        fixed shadow-md inset-0 z-40 top-16 left-0 w-64 h-[90vh] bg-white overflow-y-auto transition-transform duration-300 
-        lg:static lg:translate-x-0 lg:h-[90vh] lg:w-64`}
-      >
-        <FilterSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-      </div>
-
-      {/* Products Section */}
-      <div className={`flex-grow p-4 pt-4 lg:pt-24 ${isSidebarOpen ? "overflow-hidden" : ""}`}>
-        <h2 className="text-2xl uppercase mb-4">Collections</h2>
-       <div className="flex justify-between mb-8 lg:justify-end">
-  <button 
-    onClick={toggleSidebar} 
-    className="lg:hidden bg-white border w-40  rounded-lg  flex  justify-center shadow-md items-center"
-  >
-    <FaFilter className="mr-2" /> Filters
-  </button>
-   <div className="mr-2 ">
-        <SortOptions /></div></div>
-        <ProductGrid products={products} loading={loading} error={error} />
+        {/* Products Section */}
+        <div className={`flex-grow p-4 pt-4 lg:pt-24 ${isSidebarOpen ? "overflow-hidden" : ""}`}>
+          <h2 className="text-2xl uppercase mb-4">Collections</h2>
+          <div className="flex justify-between mb-8 lg:justify-end">
+            {/* Mobile Filter Button */}
+            <button
+              onClick={toggleSidebar}
+              className="lg:hidden bg-white border w-40 rounded-lg flex justify-center shadow-md items-center"
+            >
+              <FaFilter className="mr-2" /> Filters
+            </button>
+            <div className="mr-2">
+              <SortOptions />
+            </div>
+          </div>
+          <ProductGrid products={products} loading={loading} error={error} />
+        </div>
       </div>
     </div>
   );

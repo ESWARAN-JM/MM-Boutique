@@ -7,17 +7,17 @@ const ProductGrid = ({ products, loading, error }) => {
     return Math.round(((originalPrice - discountPrice) / originalPrice) * 100);
   };
 
-  const getOptimizedImageUrl = (url, width = window.innerWidth < 768 ? 300 : 400, quality = "auto") => {
+  const getOptimizedImageUrl = (url, width = 300, quality = "auto") => {
     return url.replace("/upload/", `/upload/w_${width},q_${quality},f_auto,dpr_auto/`);
   };
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
       {loading
         ? Array.from({ length: 8 }).map((_, index) => (
             <div key={index} className="bg-white p-4 rounded-lg animate-pulse flex flex-col">
-              <div className="w-full h-40 bg-gray-200 rounded-lg mb-4"></div>
-              <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
+              <div className="w-40 h-40 sm:w-48 sm:h-48 bg-gray-200 rounded-lg mb-2"></div>
+              <div className="h-4 bg-gray-300 rounded w-3/4 mb-1"></div>
               <div className="h-4 bg-gray-300 rounded w-1/2"></div>
             </div>
           ))
@@ -27,9 +27,9 @@ const ProductGrid = ({ products, loading, error }) => {
           </div>
         : products.map((product, index) => (
             <Link key={index} to={`/product/${product._id}`} className="block">
-              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col">
-                {/* Image Container with Fixed Height */}
-                <div className="w-full h-40 sm:h-48 overflow-hidden rounded-lg mb-3">
+              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
+                {/* Image Container with Fixed Size */}
+                <div className="w-40 h-40 sm:w-48 sm:h-48 overflow-hidden rounded-lg mb-2">
                   <LazyLoadImage
                     src={getOptimizedImageUrl(product.images[0]?.url)}
                     alt={product.images[0]?.altText || product.name}
@@ -39,8 +39,8 @@ const ProductGrid = ({ products, loading, error }) => {
                 </div>
 
                 {/* Product Info */}
-                <h3 className="text-sm font-semibold text-gray-800 truncate">{product.name}</h3>
-                <div className="flex items-center gap-2">
+                <h3 className="text-sm font-semibold text-gray-800 text-center">{product.name}</h3>
+                <div className="flex items-center gap-1 text-center">
                   <span className="text-gray-400 line-through text-sm">₹ {product.mrp}</span>
                   {product.price && (
                     <span className="text-red-500 font-semibold text-sm">₹ {product.price}</span>
