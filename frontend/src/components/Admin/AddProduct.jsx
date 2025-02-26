@@ -83,7 +83,12 @@ const AddProduct = () => {
         }
     };
 
-    
+    const handleRemoveImage = (index) => {
+        setProductData((prevData) => ({
+            ...prevData,
+            images: prevData.images.filter((_, i) => i !== index),
+        }));
+    };
     
     return (
         <div className="max-w-5xl pt-16 mx-auto p-6 shadow-md rounded-md">
@@ -248,27 +253,39 @@ const AddProduct = () => {
                     
                 
                     <div className="mb-6">
-                    <label className="block font-semibold mb-2">Upload Image</label>
-                    <input type="file" onChange={handleImageUpload} />
-                    {uploading && <p>Uploading image...</p>}
-                    <div className="flex gap-4 mt-4">
-                        {productData.images.map((image, index) => (
-                            <div key={index}>
-                                <img src={image.url} 
-                                    alt={image.altText || "Product Image"} 
-                                    className="w-20 h-20 object-cover rounded-md shadow-md"
-                                />
-                                <input 
-                                    type="text" 
-                                    placeholder="Alt text" 
-                                    value={image.altText} 
-                                    onChange={(e) => handleAltTextChange(index, e.target.value)} 
-                                    className="mt-2 border border-gray-300 rounded-md p-1 w-full"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
+    <label className="block font-semibold mb-2">Upload Image</label>
+    <input type="file" onChange={handleImageUpload} />
+    {uploading && <p>Uploading image...</p>}
+    
+    <div className="flex flex-wrap gap-4 mt-4">
+        {productData.images.map((image, index) => (
+            <div key={index} className="relative group">
+                <img 
+                    src={image.url} 
+                    alt={image.altText || "Product Image"} 
+                    className="w-20 h-20 object-cover rounded-md shadow-md"
+                />
+                
+                <input 
+                    type="text" 
+                    placeholder="Alt text" 
+                    value={image.altText} 
+                    onChange={(e) => handleAltTextChange(index, e.target.value)} 
+                    className="mt-2 border border-gray-300 rounded-md p-1 w-full"
+                />
+
+                {/* Remove Button */}
+                <button
+                    type="button"
+                    onClick={() => handleRemoveImage(index)}
+                    className="absolute top-0 right-0 bg-red-500 text-white text-xs p-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                    X
+                </button>
+            </div>
+        ))}
+    </div>
+</div>
 
                 <button 
                     className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-colors">
