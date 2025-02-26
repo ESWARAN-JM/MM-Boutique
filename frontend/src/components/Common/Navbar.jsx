@@ -182,7 +182,7 @@ const Navbar = () => {
           </nav>
         </div>
           {/* Home Button Inside the Menu Bar */}
-  <div className=" mb-2 mt-4  flex flex-col  items-center ">
+  <div className=" bottom-0 mt-4  flex flex-col  items-center ">
     <Link
       to="/"
       onClick={toggleNavDrawer}
@@ -193,7 +193,7 @@ const Navbar = () => {
     </Link>
 
     {/* Instructional Paragraph */}
-    <p className="mt-2 text-center text-sm text-gray-500">
+    <p className="mt-2 mb-8 text-center text-sm text-gray-500">
       You can also click on the logo in the navbar to return homepage.
     </p>
   </div>
