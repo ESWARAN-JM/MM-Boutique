@@ -57,7 +57,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="container mx-auto flex items-center justify-between h-14 py-4 px-6">
+      <nav className="fixed top-10 left-0 w-full bg-white shadow-md z-40 flex items-center justify-between h-14 py-4 px-6">
         {/* Left - Logo */}
         <Link to="/">
           <img
@@ -126,32 +126,34 @@ const Navbar = () => {
         </div>
 
       </nav>
+      
 
       {/* Overlay to prevent scrolling outside */}
       {(drawerOpen || navDrawerOpen) && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={handleClickOutside}></div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-30" onClick={handleClickOutside}></div>
       )}
 
       {/* Cart Drawer */}
+      
       <div
         ref={cartDrawerRef}
-        className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 overflow-y-auto ${
+        className={`fixed  right-0 w-80 h-full bg-white shadow-lg transform transition-transform duration-300 z-30 overflow-y-auto ${
           drawerOpen ? "translate-x-0" : "translate-x-full"
         }`}
-      >
+      > 
         <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
       </div>
-
+        
       {/* Mobile Navigation */}
       <div
         ref={navDrawerRef}
-        className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:w-1/3 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 overflow-y-auto ${
+        className={`fixed  left-0 w-3/4 sm:w-1/2 md:w-1/3 h-full bg-white shadow-lg transform transition-transform duration-300 z-30 overflow-y-auto ${
           navDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
-      >
+      ><div className="pt-12">
         {/* Close Button */}
-        <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="text-xl font-bold text-gray-800">Menu</h2>
+        <div className="flex justify-between  items-center p-4 border-b">
+          <h2 className="text-xl pt-2 font-bold text-gray-800">Menu</h2>
           <button
             onClick={toggleNavDrawer}
             className="p-2 rounded-full hover:bg-gray-200 transition"
@@ -178,7 +180,7 @@ const Navbar = () => {
           </nav>
         </div>
           {/* Home Button Inside the Menu Bar */}
-  <div className="p-4 mt-16 flex flex-col bottom-0 items-center ">
+  <div className=" mb-8  flex flex-col  items-center ">
     <Link
       to="/"
       onClick={toggleNavDrawer}
@@ -193,7 +195,7 @@ const Navbar = () => {
       You can also click on the logo in the navbar to return homepage.
     </p>
   </div>
-
+  </div>
       </div>
     </>
   );

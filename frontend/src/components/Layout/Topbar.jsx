@@ -1,11 +1,9 @@
-import { TbBrandMeta } from "react-icons/tb";
 import { IoLogoInstagram } from "react-icons/io";
-import { RiTwitterXLine } from "react-icons/ri";
 import { FaWhatsapp } from "react-icons/fa"; 
 
 const Topbar = () => {
   return (
-    <div className="bg-rabbit-red text-white  ">
+    <div className="bg-rabbit-red z-50 text-white  ">
       <div className="container mx-auto flex justify-between items-center py-3 px-4">
         
         {/* Desktop View (Hidden on Mobile) */}

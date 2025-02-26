@@ -31,7 +31,7 @@ const ProductGrid = ({ products, loading, error }) => {
           products.map((product, index) => (
             <Link key={index} to={`/product/${product._id}`} className="block">
               <div className="bg-white p-4 rounded-lg">
-                <div className="w-full h-40 mb-4">
+                <div className="w-full h-40 mb-2">
                   <LazyLoadImage
                     src={getOptimizedImageUrl(product.images[0].url)}
                     alt={product.images[0].altText || product.name}

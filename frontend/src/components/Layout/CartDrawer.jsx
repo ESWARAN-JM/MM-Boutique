@@ -22,7 +22,7 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
     }
    };
 
- return ( <div className={`fixed top-0 right-0 w-full h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out flex flex-col z-50 ${
+ return ( <div className={`fixed top-12 right-0 w-full h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out flex flex-col z-50 ${
   drawerOpen ? "translate-x-0" : "translate-x-full"
 }`}>
 
