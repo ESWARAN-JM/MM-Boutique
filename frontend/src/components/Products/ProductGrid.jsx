@@ -16,7 +16,7 @@ const ProductGrid = ({ products, loading, error }) => {
       {loading
         ? Array.from({ length: 8 }).map((_, index) => (
             <div key={index} className="bg-white p-4 rounded-lg animate-pulse flex flex-col">
-              <div className="w-full h-48 bg-gray-200 rounded-lg mb-4"></div>
+              <div className="w-full h-40 bg-gray-200 rounded-lg mb-4"></div>
               <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
               <div className="h-4 bg-gray-300 rounded w-1/2"></div>
             </div>
@@ -27,32 +27,30 @@ const ProductGrid = ({ products, loading, error }) => {
           </div>
         : products.map((product, index) => (
             <Link key={index} to={`/product/${product._id}`} className="block">
-              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col h-full">
-                {/* Image Container */}
-                <div className="w-full h-60 flex items-center justify-center mb-4">
+              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col">
+                {/* Image Container with Fixed Height */}
+                <div className="w-full h-40 sm:h-48 overflow-hidden rounded-lg mb-3">
                   <LazyLoadImage
                     src={getOptimizedImageUrl(product.images[0]?.url)}
                     alt={product.images[0]?.altText || product.name}
                     effect="blur"
-                    className="w-full h-full object-contain rounded-lg"
+                    className="w-full h-full object-cover"
                   />
                 </div>
 
                 {/* Product Info */}
-                <div className="flex flex-col flex-grow">
-                  <h3 className="text-sm font-semibold text-gray-800 mb-1">{product.name}</h3>
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-400 line-through text-sm">₹ {product.mrp}</span>
-                    {product.price && (
-                      <span className="text-red-500 font-semibold text-sm">₹ {product.price}</span>
-                    )}
-                  </div>
+                <h3 className="text-sm font-semibold text-gray-800 truncate">{product.name}</h3>
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-400 line-through text-sm">₹ {product.mrp}</span>
                   {product.price && (
-                    <span className="text-green-600 text-xs font-semibold">
-                      {calculateDiscountPercentage(product.mrp, product.price)}% Off
-                    </span>
+                    <span className="text-red-500 font-semibold text-sm">₹ {product.price}</span>
                   )}
                 </div>
+                {product.price && (
+                  <span className="text-green-600 text-xs font-semibold">
+                    {calculateDiscountPercentage(product.mrp, product.price)}% Off
+                  </span>
+                )}
               </div>
             </Link>
           ))}
