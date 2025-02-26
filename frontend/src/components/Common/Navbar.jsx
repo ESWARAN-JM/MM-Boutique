@@ -95,6 +95,16 @@ const Navbar = () => {
             <SearchBar className="h-6 w-6" />
           </div>
 
+
+          {/* Profile */}
+          <Link
+            to="/profile"
+            className="text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100"
+          >
+            <HiOutlineUser className="h-6 w-6 text-gray-900" />
+          </Link>
+
+          
           {/* Cart */}
           <button
             onClick={toggleCartDrawer}
@@ -107,14 +117,6 @@ const Navbar = () => {
               </span>
             )}
           </button>
-
-          {/* Profile */}
-          <Link
-            to="/profile"
-            className="text-gray-800 hover:text-gray-800 transition-all flex items-center justify-center p-2 rounded-full hover:bg-gray-100"
-          >
-            <HiOutlineUser className="h-6 w-6 text-gray-900" />
-          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -180,7 +182,7 @@ const Navbar = () => {
           </nav>
         </div>
           {/* Home Button Inside the Menu Bar */}
-  <div className=" mb-8  flex flex-col  items-center ">
+  <div className=" mb-2 mt-4  flex flex-col  items-center ">
     <Link
       to="/"
       onClick={toggleNavDrawer}

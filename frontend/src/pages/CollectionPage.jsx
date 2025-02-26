@@ -70,7 +70,7 @@ const CollectionPage = () => {
       <div 
         ref={sidebarRef} 
         className={`${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} 
-        fixed z-40 top-16 left-0 w-64 h-[90vh] bg-white overflow-y-auto transition-transform duration-300 
+        fixed shadow-md inset-0 z-40 top-16 left-0 w-64 h-[90vh] bg-white overflow-y-auto transition-transform duration-300 
         lg:static lg:translate-x-0 lg:h-[90vh] lg:w-64`}
       >
         <FilterSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
@@ -86,7 +86,7 @@ const CollectionPage = () => {
   >
     <FaFilter className="mr-2" /> Filters
   </button>
-   <div className="mr-4 ">
+   <div className="mr-2 ">
         <SortOptions /></div></div>
         <ProductGrid products={products} loading={loading} error={error} />
       </div>

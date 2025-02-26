@@ -30,7 +30,7 @@ const Footer = () => {
                 className="hover:text-gray-300 block text-center">
                     <IoLogoInstagram className="h-5 w-5"/>
                 </a>
-                <a href="https://wa.link/qn6rei" target="_blank" rel="noopener noreferrer"
+                <a href="https://whatsapp.com/channel/0029Vb2fyYdD8SDs820I4024" target="_blank" rel="noopener noreferrer"
                 className="hover:text-gray-300 block text-center">
                     <FaWhatsapp className="h-5 w-5"/>
                 </a>
