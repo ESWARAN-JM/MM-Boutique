@@ -60,7 +60,7 @@ const Footer = () => {
         </div>
     </div>
     {/* Footer Bottom */}
-    <div className="  mt-12  border-t border-gray-200 pt-4">
+    <div className="  mt-4  border-t border-gray-200 pt-4">
         <p className="text-gray-500 text-sm tracking-tighter text-center">
         © 2025, M.M Boutique. All Rights Reserved.
         </p>

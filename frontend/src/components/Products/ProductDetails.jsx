@@ -80,12 +80,23 @@ const ProductDetails = ({productId}) => {
           });
     };
 
-    if (loading) return (
-        <div className="absolute top-32 left-1/2 transform -translate-x-1/2 bg-white shadow-md px-6 py-3 rounded-lg flex items-center gap-2">
-          <div className="w-5 h-5 border-4 border-gray-300 border-t-gray-700 rounded-full animate-spin"></div>
-          <span className="text-gray-700 font-medium">Loading...</span>
-        </div>
-      );
+    if (loading)
+        return (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-6xl mx-auto p-8">
+                <div className="bg-white p-6 rounded-lg animate-pulse">
+                    <div className="w-full h-64 bg-gray-200 rounded-lg mb-4"></div>
+                    <div className="h-6 bg-gray-300 rounded w-3/4 mb-2"></div>
+                    <div className="h-4 bg-gray-300 rounded w-1/2 mb-4"></div>
+                    <div className="h-10 bg-gray-300 rounded w-full"></div>
+                </div>
+                <div className="bg-white p-6 rounded-lg animate-pulse">
+                    <div className="h-6 bg-gray-300 rounded w-2/3 mb-2"></div>
+                    <div className="h-4 bg-gray-300 rounded w-1/2 mb-4"></div>
+                    <div className="h-4 bg-gray-300 rounded w-1/4 mb-4"></div>
+                    <div className="h-10 bg-gray-300 rounded w-full"></div>
+                </div>
+            </div>
+        );
       
       if (error) return (
         <div className="absolute top-32 left-1/2 transform -translate-x-1/2 bg-red-100 shadow-md px-6 py-3 rounded-lg text-red-700 font-semibold">

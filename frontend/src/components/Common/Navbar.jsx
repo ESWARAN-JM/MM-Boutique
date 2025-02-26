@@ -178,7 +178,7 @@ const Navbar = () => {
           </nav>
         </div>
           {/* Home Button Inside the Menu Bar */}
-  <div className="p-4 mt-8 flex flex-col bottom-0 items-center ">
+  <div className="p-4 mt-16 flex flex-col bottom-0 items-center ">
     <Link
       to="/"
       onClick={toggleNavDrawer}
