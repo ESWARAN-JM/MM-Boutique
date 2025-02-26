@@ -7,40 +7,40 @@ const ProductGrid = ({ products, loading, error }) => {
     return Math.round(((originalPrice - discountPrice) / originalPrice) * 100);
   };
 
-  const getOptimizedImageUrl = (url, width = window.innerWidth < 768 ? 400 : 500, quality = "auto") => {
+  const getOptimizedImageUrl = (url, width = window.innerWidth < 768 ? 300 : 400, quality = "auto") => {
     return url.replace("/upload/", `/upload/w_${width},q_${quality},f_auto,dpr_auto/`);
   };
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
       {loading
-        ? // Show loading effect inside the grid
-          Array.from({ length: 8 }).map((_, index) => (
+        ? Array.from({ length: 8 }).map((_, index) => (
             <div key={index} className="bg-white p-4 rounded-lg animate-pulse flex flex-col">
-              <div className="w-full h-40 bg-gray-200 rounded-lg mb-4"></div>
+              <div className="w-full h-48 bg-gray-200 rounded-lg mb-4"></div>
               <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
               <div className="h-4 bg-gray-300 rounded w-1/2"></div>
             </div>
           ))
         : error
-        ? // Show error message in grid layout
-          <div className="col-span-4 text-center text-red-700 font-semibold bg-red-100 px-4 py-2 rounded">
+        ? <div className="col-span-4 text-center text-red-700 font-semibold bg-red-100 px-4 py-2 rounded">
             ⚠️ Error: {error}
           </div>
-        : // Show products when loaded
-          products.map((product, index) => (
+        : products.map((product, index) => (
             <Link key={index} to={`/product/${product._id}`} className="block">
-              <div className="bg-white p-4 rounded-lg">
-                <div className="w-full h-40 ">
+              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col h-full">
+                {/* Image Container */}
+                <div className="w-full h-60 flex items-center justify-center mb-4">
                   <LazyLoadImage
-                    src={getOptimizedImageUrl(product.images[0].url)}
-                    alt={product.images[0].altText || product.name}
+                    src={getOptimizedImageUrl(product.images[0]?.url)}
+                    alt={product.images[0]?.altText || product.name}
                     effect="blur"
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-contain rounded-lg"
                   />
                 </div>
-                <h3 className="text-sm ">{product.name}</h3>
-                <div className="flex flex-col">
+
+                {/* Product Info */}
+                <div className="flex flex-col flex-grow">
+                  <h3 className="text-sm font-semibold text-gray-800 mb-1">{product.name}</h3>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-400 line-through text-sm">₹ {product.mrp}</span>
                     {product.price && (
